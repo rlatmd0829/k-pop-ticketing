@@ -1,13 +1,22 @@
 package com.kpop.ticketing.presentation.show.dto.response;
 
+import java.time.LocalDateTime;
+
+import com.kpop.ticketing.domain.show.Show;
+
+import lombok.Getter;
+
+@Getter
 public class ShowListResponse {
 	private Long id;
-	private String date;
+	private LocalDateTime showTime;
 
-	public ShowListResponse(Long id, String date) {
+	private ShowListResponse(Long id, LocalDateTime showTime) {
 		this.id = id;
-		this.date = date;
+		this.showTime = showTime;
 	}
 
-
+	public static ShowListResponse from(Show show) {
+		return new ShowListResponse(show.getId(), show.getShowTime());
+	}
 }

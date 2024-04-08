@@ -22,7 +22,7 @@ public class SeatJpaRepositoryCustomImpl implements SeatJpaRepositoryCustom {
 	@Override
 	public List<Seat> getSeats(Long showId) {
 		return jpaQueryFactory.selectFrom(seat)
-			.join(seat.show, show).fetchJoin()
+			.join(seat.show, show)
 			.where(show.id.eq(showId), seat.status.eq(SeatStatus.EMPTY))
 			.fetch();
 	}
