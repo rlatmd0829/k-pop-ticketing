@@ -1,1 +1,9 @@
-spring.application.name=ticketing
+spring:
+  datasource:
+    driver-class-name: org.h2.Driver
+    url: jdbc:h2:mem:ticketing;MODE=MySQL;DATABASE_TO_LOWER=TRUE
+    username: sa
+    password:
+  h2:
+    console:
+      enabled: true

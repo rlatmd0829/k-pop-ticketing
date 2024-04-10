@@ -15,7 +15,7 @@ import org.springframework.context.annotation.Import;
 
 import net.jqwik.api.Arbitraries;
 
-import com.kpop.ticketing.domain.common.config.QueryDslConfiguration;
+import com.kpop.ticketing.domain.common.config.QueryDslConfig;
 import com.kpop.ticketing.domain.concert.Concert;
 import com.kpop.ticketing.domain.concert.infra.ConcertJpaRepository;
 import com.kpop.ticketing.domain.show.Show;
@@ -24,7 +24,7 @@ import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntr
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;
 
 @DataJpaTest
-@Import(QueryDslConfiguration.class)
+@Import(QueryDslConfig.class)
 class ShowJpaRepositoryTest {
 
 	@Autowired
