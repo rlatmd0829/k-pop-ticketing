@@ -1,9 +1,11 @@
-package com.kpop.ticketing.domain.seat;
+package com.kpop.ticketing.domain.show;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -17,29 +19,42 @@ import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntr
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;
 
 @ExtendWith(MockitoExtension.class)
-class SeatReaderTest {
+class ShowReaderTest {
 	@InjectMocks
-	private SeatReader seatReader;
+	private ShowReader showReader;
 
 	@Mock
-	private SeatReaderRepository seatReaderRepository;
+	private ShowReaderRepository showReaderRepository;
 
 	@Test
-	@DisplayName("getSeatsTest")
-	void getSeats() {
-	    // given
+	@DisplayName("getShowTest")
+	void getShowTest() {
+		// given
+		Long showId = 1L;
+
+		// when
+		when(showReaderRepository.getShow(anyLong())).thenReturn(Optional.of(new Show()));
+
+		// then
+		assertNotNull(showReader.getShow(showId));
+	}
+
+	@Test
+	@DisplayName("getShowsTest")
+	void getShowsTest() {
+		// given
 		FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
 			.objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
 			.plugin(new JakartaValidationPlugin())
 			.build();
 
-		List<Seat> seats = fixtureMonkey.giveMe(Seat.class, 3);
+		List<Show> shows = fixtureMonkey.giveMe(Show.class, 3);
 
-	    // when
-	    when(seatReaderRepository.getSeats(anyLong())).thenReturn(seats);
+		// when
+		when(showReaderRepository.getShows(anyLong(), any())).thenReturn(shows);
 
-	    // then
-		assertNotNull(seatReader.getSeats(1L));
-
+		// then
+		assertNotNull(showReader.getShows(1L));
 	}
+
 }
