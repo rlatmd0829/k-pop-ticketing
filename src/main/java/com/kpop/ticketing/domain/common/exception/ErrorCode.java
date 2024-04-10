@@ -12,6 +12,7 @@ public enum ErrorCode {
 	/* 404 NOT_FOUND */
 	NOT_FOUND_SHOW(HttpStatus.NOT_FOUND),
 	NOT_FOUND_SEAT(HttpStatus.NOT_FOUND),
+	NOT_FOUND_USER(HttpStatus.NOT_FOUND),
 
 	/* 409 CONFLICT */
 

@@ -1,10 +1,6 @@
-package com.kpop.ticketing.domain.show;
+package com.kpop.ticketing.domain.reservation;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
-
-import java.util.List;
-import java.util.Optional;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,47 +9,37 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.kpop.ticketing.domain.seat.Seat;
+import com.kpop.ticketing.domain.user.User;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;
 
 @ExtendWith(MockitoExtension.class)
-class ShowReaderTest {
+class ReservationWriterTest {
 	@InjectMocks
-	private ShowReader showReader;
+	private ReservationWriter reservationWriter;
 
 	@Mock
-	private ShowRepository showRepository;
+	private ReservationRepository reservationRepository;
 
 	@Test
-	@DisplayName("getShowTest")
-	void getShowTest() {
-		// given
-		Long showId = 1L;
-
-		// when
-		when(showRepository.getShow(anyLong())).thenReturn(Optional.of(new Show()));
-
-		// then
-		assertNotNull(showReader.getShow(showId));
-	}
-
-	@Test
-	@DisplayName("getShowsTest")
-	void getShowsTest() {
+	@DisplayName("createTest")
+	void create() {
 		// given
 		FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
 			.objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
 			.plugin(new JakartaValidationPlugin())
 			.build();
 
-		List<Show> shows = fixtureMonkey.giveMe(Show.class, 3);
+		User user = fixtureMonkey.giveMeOne(User.class);
+		Seat seat = fixtureMonkey.giveMeOne(Seat.class);
 
 		// when
-		when(showRepository.getShows(anyLong(), any())).thenReturn(shows);
+		reservationWriter.create(seat, user);
 
 		// then
-		assertNotNull(showReader.getShows(1L));
+		verify(reservationRepository, times(1)).save(any());
 	}
 
 }

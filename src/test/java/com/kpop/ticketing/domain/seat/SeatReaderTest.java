@@ -22,7 +22,7 @@ class SeatReaderTest {
 	private SeatReader seatReader;
 
 	@Mock
-	private SeatReaderRepository seatReaderRepository;
+	private SeatRepository seatRepository;
 
 	@Test
 	@DisplayName("getSeatsTest")
@@ -36,7 +36,7 @@ class SeatReaderTest {
 		List<Seat> seats = fixtureMonkey.giveMe(Seat.class, 3);
 
 	    // when
-	    when(seatReaderRepository.getSeats(anyLong())).thenReturn(seats);
+	    when(seatRepository.getSeats(anyLong())).thenReturn(seats);
 
 	    // then
 		assertNotNull(seatReader.getSeats(1L));

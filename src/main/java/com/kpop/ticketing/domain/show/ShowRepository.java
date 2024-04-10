@@ -4,7 +4,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
-public interface ShowReaderRepository {
+public interface ShowRepository {
 	Optional<Show> getShow(Long showId);
 	List<Show> getShows(Long showId, LocalDateTime showTime);
 }
