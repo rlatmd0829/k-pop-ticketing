@@ -8,11 +8,11 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import jakarta.persistence.EntityManager;
 
 @Configuration
-public class JpaConfig {
+public class QueryDslConfiguration {
 
 	private final EntityManager entityManager;
 
-	public JpaConfig(EntityManager entityManager) {
+	public QueryDslConfiguration(EntityManager entityManager) {
 		this.entityManager = entityManager;
 	}
 

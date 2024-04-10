@@ -12,10 +12,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "seats")
 @Getter
+@NoArgsConstructor
 public class Seat {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,5 +35,4 @@ public class Seat {
 	@ManyToOne
 	@JoinColumn(name = "show_id")
 	private Show show;
-
 }
