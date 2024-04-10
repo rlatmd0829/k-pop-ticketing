@@ -4,7 +4,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import java.time.LocalDateTime;
-import java.time.temporal.TemporalAmount;
 import java.util.List;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -54,15 +53,6 @@ class ShowJpaRepositoryTest {
 			.set("showTime", LocalDateTime.now().plusDays(1))
 			.set("capacity", Arbitraries.integers().between(1, 100))
 			.sampleList(10);
-
-		for (Show show : shows) {
-			System.out.println("!!!!!!!!");
-			System.out.println(show.getConcert().getId());
-			System.out.println(show.getConcert().getName());
-			System.out.println(show.getShowTime());
-			System.out.println(show.getCapacity());
-		}
-
 		showJpaRepository.saveAll(shows);
 	}
 
