@@ -2,7 +2,7 @@ package com.kpop.ticketing.presentation.show.dto.response;
 
 import java.time.LocalDateTime;
 
-import com.kpop.ticketing.domain.show.Show;
+import com.kpop.ticketing.domain.show.model.Show;
 
 import lombok.Getter;
 

@@ -2,18 +2,18 @@ package com.kpop.ticketing.presentation.show.usecase;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.kpop.ticketing.domain.seat.Seat;
-import com.kpop.ticketing.domain.seat.SeatReader;
-import com.kpop.ticketing.domain.show.Show;
-import com.kpop.ticketing.domain.show.ShowReader;
+import com.kpop.ticketing.domain.show.model.Show;
+import com.kpop.ticketing.domain.show.component.ShowReader;
 import com.kpop.ticketing.presentation.show.dto.response.ShowListResponse;
 
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
-@Service
+@Component
+@Transactional(readOnly = true)
 public class GetShowsUseCase {
 	private final ShowReader showReader;
 

@@ -1,6 +1,6 @@
 package com.kpop.ticketing.presentation.seat.dto.response;
 
-import com.kpop.ticketing.domain.seat.Seat;
+import com.kpop.ticketing.domain.seat.model.Seat;
 
 import lombok.Getter;
 

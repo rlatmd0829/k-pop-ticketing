@@ -2,23 +2,24 @@ package com.kpop.ticketing.presentation.seat.usecase;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.kpop.ticketing.domain.seat.Seat;
-import com.kpop.ticketing.domain.seat.SeatReader;
-import com.kpop.ticketing.domain.show.ShowReader;
+import com.kpop.ticketing.domain.seat.model.Seat;
+import com.kpop.ticketing.domain.seat.component.SeatReader;
+import com.kpop.ticketing.domain.show.component.ShowReader;
 import com.kpop.ticketing.presentation.seat.dto.response.SeatListResponse;
 
 import lombok.RequiredArgsConstructor;
 
-@Service
+@Component
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class GetSeatsUseCase {
 	private final SeatReader seatReader;
 	private final ShowReader showReader;
 
 	public List<SeatListResponse> execute(Long showId) {
-		// show가 있는지 이런식으로 체크하는게 맞나..?
 		showReader.getShow(showId);
 
 		List<Seat> seats = seatReader.getSeats(showId);

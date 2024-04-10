@@ -9,8 +9,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.kpop.ticketing.domain.seat.Seat;
-import com.kpop.ticketing.domain.user.User;
+import com.kpop.ticketing.domain.reservation.component.ReservationWriter;
+import com.kpop.ticketing.domain.reservation.repository.ReservationRepository;
+import com.kpop.ticketing.domain.seat.model.Seat;
+import com.kpop.ticketing.domain.user.model.User;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;

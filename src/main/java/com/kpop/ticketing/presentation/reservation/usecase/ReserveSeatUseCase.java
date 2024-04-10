@@ -1,18 +1,20 @@
 package com.kpop.ticketing.presentation.reservation.usecase;
 
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
-import com.kpop.ticketing.domain.reservation.ReservationWriter;
-import com.kpop.ticketing.domain.seat.Seat;
-import com.kpop.ticketing.domain.seat.SeatReader;
-import com.kpop.ticketing.domain.seat.SeatWriter;
-import com.kpop.ticketing.domain.user.User;
-import com.kpop.ticketing.domain.user.UserReader;
+import com.kpop.ticketing.domain.reservation.component.ReservationWriter;
+import com.kpop.ticketing.domain.seat.model.Seat;
+import com.kpop.ticketing.domain.seat.component.SeatReader;
+import com.kpop.ticketing.domain.seat.component.SeatWriter;
+import com.kpop.ticketing.domain.user.model.User;
+import com.kpop.ticketing.domain.user.component.UserReader;
 
 import lombok.RequiredArgsConstructor;
 
-@Service
+@Component
 @RequiredArgsConstructor
+@Transactional
 public class ReserveSeatUseCase {
 	private final UserReader userReader;
 	private final SeatReader seatReader;
