@@ -34,6 +34,4 @@ public class ShowJpaRepositoryCustomImpl implements ShowJpaRepositoryCustom {
 			.where(concert.id.eq(concertId), show.showTime.gt(showTime))
 			.fetch();
 	}
-
-
 }
