@@ -13,6 +13,9 @@ public class GlobalExceptionHandler {
 
 	@ExceptionHandler(value = {CustomException.class})
 	protected ResponseEntity<ErrorResponse> handleCustomException(CustomException e, HttpServletRequest request) {
-		return ErrorResponse.toResponseEntity(e.getErrorCode(), e.getErrorCode().toString(), request);
+		System.out.println("!!!!!!!!!!!!");
+		System.out.println(e.getErrorCode().getHttpStatus());
+		System.out.println(e.getErrorCode().getMessage());
+		return ErrorResponse.toResponseEntity(e.getErrorCode(), e.getErrorCode().getMessage(), request);
 	}
 }

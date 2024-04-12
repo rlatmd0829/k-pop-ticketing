@@ -14,7 +14,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.kpop.ticketing.domain.seat.component.SeatReader;
 import com.kpop.ticketing.domain.seat.model.Seat;
-import com.kpop.ticketing.domain.seat.repository.SeatRepository;
+import com.kpop.ticketing.domain.seat.repository.SeatReaderRepository;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;
@@ -25,11 +25,11 @@ class SeatReaderTest {
 	private SeatReader seatReader;
 
 	@Mock
-	private SeatRepository seatRepository;
+	private SeatReaderRepository seatReaderRepository;
 
 	@Test
 	@DisplayName("getSeatsTest")
-	void getSeats() {
+	void getSeatsTest() {
 	    // given
 		FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
 			.objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
@@ -39,7 +39,7 @@ class SeatReaderTest {
 		List<Seat> seats = fixtureMonkey.giveMe(Seat.class, 3);
 
 	    // when
-	    when(seatRepository.getSeats(anyLong())).thenReturn(seats);
+	    when(seatReaderRepository.getSeats(anyLong())).thenReturn(seats);
 
 	    // then
 		assertNotNull(seatReader.getSeats(1L));

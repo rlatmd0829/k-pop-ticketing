@@ -6,13 +6,13 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import com.kpop.ticketing.domain.seat.model.Seat;
-import com.kpop.ticketing.domain.seat.repository.SeatRepository;
+import com.kpop.ticketing.domain.seat.repository.SeatReaderRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class SeatRepositoryImpl implements SeatRepository {
+public class SeatReaderRepositoryImpl implements SeatReaderRepository {
 	private final SeatJpaRepository seatJpaRepository;
 
 	@Override
@@ -23,10 +23,5 @@ public class SeatRepositoryImpl implements SeatRepository {
 	@Override
 	public List<Seat> getSeats(Long showId) {
 		return seatJpaRepository.getSeats(showId);
-	}
-
-	@Override
-	public void save(Seat seat) {
-		seatJpaRepository.save(seat);
 	}
 }

@@ -6,7 +6,7 @@ import java.util.Optional;
 
 import com.kpop.ticketing.domain.show.model.Show;
 
-public interface ShowRepository {
+public interface ShowReaderRepository {
 	Optional<Show> getShow(Long showId);
 	List<Show> getShows(Long showId, LocalDateTime showTime);
 }

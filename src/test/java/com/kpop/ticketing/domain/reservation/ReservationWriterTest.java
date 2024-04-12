@@ -10,7 +10,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.kpop.ticketing.domain.reservation.components.ReservationWriter;
-import com.kpop.ticketing.domain.reservation.repository.ReservationRepository;
+import com.kpop.ticketing.domain.reservation.repository.ReservationWriterRepository;
 import com.kpop.ticketing.domain.seat.model.Seat;
 import com.kpop.ticketing.domain.user.model.User;
 import com.navercorp.fixturemonkey.FixtureMonkey;
@@ -23,7 +23,7 @@ class ReservationWriterTest {
 	private ReservationWriter reservationWriter;
 
 	@Mock
-	private ReservationRepository reservationRepository;
+	private ReservationWriterRepository reservationWriterRepository;
 
 	@Test
 	@DisplayName("createTest")
@@ -41,7 +41,7 @@ class ReservationWriterTest {
 		reservationWriter.create(seat, user);
 
 		// then
-		verify(reservationRepository, times(1)).save(any());
+		verify(reservationWriterRepository, times(1)).save(any());
 	}
 
 }

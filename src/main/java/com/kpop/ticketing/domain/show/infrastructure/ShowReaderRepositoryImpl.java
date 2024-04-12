@@ -7,13 +7,13 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import com.kpop.ticketing.domain.show.model.Show;
-import com.kpop.ticketing.domain.show.repository.ShowRepository;
+import com.kpop.ticketing.domain.show.repository.ShowReaderRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class ShowRepositoryImpl implements ShowRepository {
+public class ShowReaderRepositoryImpl implements ShowReaderRepository {
 	private final ShowJpaRepository showJpaRepository;
 
 	@Override

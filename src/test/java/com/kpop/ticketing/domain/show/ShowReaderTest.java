@@ -15,7 +15,7 @@ import org.mockito.junit.jupiter.MockitoExtension;
 
 import com.kpop.ticketing.domain.show.components.ShowReader;
 import com.kpop.ticketing.domain.show.model.Show;
-import com.kpop.ticketing.domain.show.repository.ShowRepository;
+import com.kpop.ticketing.domain.show.repository.ShowReaderRepository;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;
@@ -26,23 +26,23 @@ class ShowReaderTest {
 	private ShowReader showReader;
 
 	@Mock
-	private ShowRepository showRepository;
+	private ShowReaderRepository showReaderRepository;
 
 	@Test
-	@DisplayName("getShowTest")
+	@DisplayName("공연 조회 테스트")
 	void getShowTest() {
 		// given
 		Long showId = 1L;
 
 		// when
-		when(showRepository.getShow(anyLong())).thenReturn(Optional.of(new Show()));
+		when(showReaderRepository.getShow(anyLong())).thenReturn(Optional.of(new Show()));
 
 		// then
 		assertNotNull(showReader.getShow(showId));
 	}
 
 	@Test
-	@DisplayName("getShowsTest")
+	@DisplayName("현재 날짜보다 이후인 공연 목록 조회 테스트")
 	void getShowsTest() {
 		// given
 		FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
@@ -53,7 +53,7 @@ class ShowReaderTest {
 		List<Show> shows = fixtureMonkey.giveMe(Show.class, 3);
 
 		// when
-		when(showRepository.getShows(anyLong(), any())).thenReturn(shows);
+		when(showReaderRepository.getShows(anyLong(), any())).thenReturn(shows);
 
 		// then
 		assertNotNull(showReader.getShows(1L));
