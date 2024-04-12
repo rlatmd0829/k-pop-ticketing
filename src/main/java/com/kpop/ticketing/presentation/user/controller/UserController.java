@@ -5,10 +5,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.kpop.ticketing.presentation.user.dto.UserBalanceResponse;
+import com.kpop.ticketing.presentation.user.dto.request.UserBalanceRequest;
+import com.kpop.ticketing.presentation.user.dto.response.UserBalanceResponse;
+import com.kpop.ticketing.presentation.user.usecase.ChargeUserBalanceUseCase;
 import com.kpop.ticketing.presentation.user.usecase.GetUserBalanceUseCase;
 
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -20,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class UserController {
 	private final GetUserBalanceUseCase getUserBalanceUseCase;
+	private final ChargeUserBalanceUseCase chargeUserBalanceUseCase;
 
 	@PostMapping("/token")
 	public String createToken() {
@@ -38,7 +42,11 @@ public class UserController {
 	}
 
 	@PostMapping("/{userId}/balance")
-	public ResponseEntity<Void> chargeBalance() {
+	public ResponseEntity<Void> chargeBalance(
+		@PathVariable Long userId,
+		@RequestBody UserBalanceRequest userBalanceRequest
+	) {
+		chargeUserBalanceUseCase.execute(userId, userBalanceRequest);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 

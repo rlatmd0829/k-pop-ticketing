@@ -1,4 +1,4 @@
-package com.kpop.ticketing.presentation.user.dto;
+package com.kpop.ticketing.presentation.user.dto.response;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

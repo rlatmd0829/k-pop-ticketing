@@ -8,6 +8,7 @@ import lombok.Getter;
 public enum ErrorCode {
 	/* 400 BAD_REQUEST */
 	INVALID_INPUT_VALUE(HttpStatus.BAD_REQUEST, "잘못된 입력값 입니다."),
+	INVALID_NEGATIVE_CHARGE_AMOUNT(HttpStatus.BAD_REQUEST, "충전 금액은 0원 이상이어야 합니다."),
 
 	/* 404 NOT_FOUND */
 	NOT_FOUND_SHOW(HttpStatus.NOT_FOUND, "존재하지 않는 공연입니다."),
