@@ -26,8 +26,8 @@ class ReservationWriterTest {
 	private ReservationWriterRepository reservationWriterRepository;
 
 	@Test
-	@DisplayName("createTest")
-	void create() {
+	@DisplayName("예약 생성 테스트")
+	void createReservationTest() {
 		// given
 		FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
 			.objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)

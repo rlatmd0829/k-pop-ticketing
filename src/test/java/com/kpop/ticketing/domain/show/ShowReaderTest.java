@@ -1,5 +1,6 @@
 package com.kpop.ticketing.domain.show;
 
+import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -13,6 +14,8 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.kpop.ticketing.domain.common.exception.CustomException;
+import com.kpop.ticketing.domain.common.exception.ErrorCode;
 import com.kpop.ticketing.domain.show.components.ShowReader;
 import com.kpop.ticketing.domain.show.model.Show;
 import com.kpop.ticketing.domain.show.repository.ShowReaderRepository;
@@ -30,7 +33,7 @@ class ShowReaderTest {
 
 	@Test
 	@DisplayName("공연 조회 테스트")
-	void getShowTest() {
+	void getShowTest_success() {
 		// given
 		Long showId = 1L;
 
@@ -42,8 +45,23 @@ class ShowReaderTest {
 	}
 
 	@Test
+	@DisplayName("공연 조회 실패 테스트 - 공연이 없을 경우")
+	void getShowTest_fail_whenShowNotExist() {
+		// given
+		Long showId = 999L;
+
+		// when
+		when(showReaderRepository.getShow(anyLong())).thenReturn(Optional.empty());
+
+		// then
+		assertThatThrownBy(() -> showReader.getShow(showId))
+			.isInstanceOf(CustomException.class)
+			.hasMessage(ErrorCode.NOT_FOUND_SHOW.getMessage());
+	}
+
+	@Test
 	@DisplayName("현재 날짜보다 이후인 공연 목록 조회 테스트")
-	void getShowsTest() {
+	void getShowsTest_success() {
 		// given
 		FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
 			.objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
