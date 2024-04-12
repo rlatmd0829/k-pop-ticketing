@@ -6,7 +6,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kpop.ticketing.domain.show.model.Show;
-import com.kpop.ticketing.domain.show.component.ShowReader;
+import com.kpop.ticketing.domain.show.components.ShowReader;
 import com.kpop.ticketing.presentation.show.dto.response.ShowListResponse;
 
 import lombok.RequiredArgsConstructor;

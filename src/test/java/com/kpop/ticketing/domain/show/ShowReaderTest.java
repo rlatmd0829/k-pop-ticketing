@@ -13,7 +13,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.kpop.ticketing.domain.show.component.ShowReader;
+import com.kpop.ticketing.domain.show.components.ShowReader;
 import com.kpop.ticketing.domain.show.model.Show;
 import com.kpop.ticketing.domain.show.repository.ShowRepository;
 import com.navercorp.fixturemonkey.FixtureMonkey;

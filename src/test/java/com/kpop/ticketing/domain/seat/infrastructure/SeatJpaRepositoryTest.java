@@ -16,7 +16,7 @@ import org.springframework.context.annotation.Import;
 import com.kpop.ticketing.domain.common.config.QueryDslConfig;
 import com.kpop.ticketing.domain.concert.infrastructure.ConcertJpaRepository;
 import com.kpop.ticketing.domain.concert.model.Concert;
-import com.kpop.ticketing.domain.seat.enumclass.SeatStatus;
+import com.kpop.ticketing.domain.seat.model.SeatStatus;
 import com.kpop.ticketing.domain.seat.model.Seat;
 import com.kpop.ticketing.domain.show.infrastructure.ShowJpaRepository;
 import com.kpop.ticketing.domain.show.model.Show;

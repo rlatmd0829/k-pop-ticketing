@@ -1,4 +1,4 @@
-package com.kpop.ticketing.domain.user.component;
+package com.kpop.ticketing.domain.user.components;
 
 import org.springframework.stereotype.Service;
 

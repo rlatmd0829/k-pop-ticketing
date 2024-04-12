@@ -1,4 +1,4 @@
-package com.kpop.ticketing.domain.reservation.component;
+package com.kpop.ticketing.domain.reservation.components;
 
 import org.springframework.stereotype.Service;
 

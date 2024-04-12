@@ -1,6 +1,5 @@
 package com.kpop.ticketing.domain.reservation.model;
 
-import com.kpop.ticketing.domain.reservation.enumclass.ReservationStatus;
 import com.kpop.ticketing.domain.seat.model.Seat;
 import com.kpop.ticketing.domain.user.model.User;
 

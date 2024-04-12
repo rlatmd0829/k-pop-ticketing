@@ -9,7 +9,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import com.kpop.ticketing.domain.seat.model.Seat;
-import com.kpop.ticketing.domain.seat.enumclass.SeatStatus;
+import com.kpop.ticketing.domain.seat.model.SeatStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
 import lombok.RequiredArgsConstructor;

@@ -1,4 +1,4 @@
-package com.kpop.ticketing.domain.show.component;
+package com.kpop.ticketing.domain.show.components;
 
 import java.time.LocalDateTime;
 import java.util.List;

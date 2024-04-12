@@ -7,7 +7,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.kpop.ticketing.domain.seat.model.Seat;
 import com.kpop.ticketing.domain.seat.component.SeatReader;
-import com.kpop.ticketing.domain.show.component.ShowReader;
+import com.kpop.ticketing.domain.show.components.ShowReader;
 import com.kpop.ticketing.presentation.seat.dto.response.SeatListResponse;
 
 import lombok.RequiredArgsConstructor;

@@ -3,12 +3,12 @@ package com.kpop.ticketing.presentation.reservation.usecase;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.kpop.ticketing.domain.reservation.component.ReservationWriter;
+import com.kpop.ticketing.domain.reservation.components.ReservationWriter;
 import com.kpop.ticketing.domain.seat.model.Seat;
 import com.kpop.ticketing.domain.seat.component.SeatReader;
 import com.kpop.ticketing.domain.seat.component.SeatWriter;
 import com.kpop.ticketing.domain.user.model.User;
-import com.kpop.ticketing.domain.user.component.UserReader;
+import com.kpop.ticketing.domain.user.components.UserReader;
 
 import lombok.RequiredArgsConstructor;
 

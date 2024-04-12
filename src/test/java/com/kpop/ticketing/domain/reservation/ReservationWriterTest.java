@@ -9,7 +9,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.kpop.ticketing.domain.reservation.component.ReservationWriter;
+import com.kpop.ticketing.domain.reservation.components.ReservationWriter;
 import com.kpop.ticketing.domain.reservation.repository.ReservationRepository;
 import com.kpop.ticketing.domain.seat.model.Seat;
 import com.kpop.ticketing.domain.user.model.User;

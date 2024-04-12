@@ -1,6 +1,5 @@
 package com.kpop.ticketing.domain.seat.model;
 
-import com.kpop.ticketing.domain.seat.enumclass.SeatStatus;
 import com.kpop.ticketing.domain.show.model.Show;
 
 import jakarta.persistence.Column;
