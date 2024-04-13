@@ -9,8 +9,9 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.kpop.ticketing.domain.reservation.components.ReservationWriter;
-import com.kpop.ticketing.domain.reservation.repository.ReservationWriterRepository;
+import com.kpop.ticketing.domain.reservation.components.ReservationStore;
+import com.kpop.ticketing.domain.reservation.model.Reservation;
+import com.kpop.ticketing.domain.reservation.repository.ReservationStoreRepository;
 import com.kpop.ticketing.domain.seat.model.Seat;
 import com.kpop.ticketing.domain.user.model.User;
 import com.navercorp.fixturemonkey.FixtureMonkey;
@@ -18,30 +19,29 @@ import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntr
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;
 
 @ExtendWith(MockitoExtension.class)
-class ReservationWriterTest {
+class ReservationStoreTest {
 	@InjectMocks
-	private ReservationWriter reservationWriter;
+	private ReservationStore reservationStore;
 
 	@Mock
-	private ReservationWriterRepository reservationWriterRepository;
+	private ReservationStoreRepository reservationStoreRepository;
 
 	@Test
 	@DisplayName("예약 생성 테스트")
-	void createReservationTest() {
+	void storeReservationTest() {
 		// given
 		FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
 			.objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
 			.plugin(new JakartaValidationPlugin())
 			.build();
 
-		User user = fixtureMonkey.giveMeOne(User.class);
-		Seat seat = fixtureMonkey.giveMeOne(Seat.class);
-
+		Reservation reservation = fixtureMonkey.giveMeOne(Reservation.class);
+		when(reservationStoreRepository.save(reservation)).thenReturn(reservation);
 		// when
-		reservationWriter.create(seat, user);
+		reservationStore.store(reservation);
 
 		// then
-		verify(reservationWriterRepository, times(1)).save(any());
+		verify(reservationStoreRepository, times(1)).save(any());
 	}
 
 }

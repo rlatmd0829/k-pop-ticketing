@@ -3,7 +3,7 @@ package com.kpop.ticketing.presentation.user.usecase;
 import org.springframework.stereotype.Component;
 
 import com.kpop.ticketing.domain.user.components.UserReader;
-import com.kpop.ticketing.domain.user.components.UserWriter;
+import com.kpop.ticketing.domain.user.components.UserStore;
 import com.kpop.ticketing.domain.user.model.User;
 import com.kpop.ticketing.presentation.user.dto.request.UserBalanceRequest;
 
@@ -15,10 +15,11 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class ChargeUserBalanceUseCase {
 	private final UserReader userReader;
-	private final UserWriter userWriter;
+	private final UserStore userStore;
 
 	public void execute(Long userId, UserBalanceRequest userBalanceRequest) {
 		User user = userReader.getUser(userId);
-		userWriter.chargeBalance(user, userBalanceRequest.getChargeAmount());
+		user.chargeBalance(userBalanceRequest.getChargeAmount());
+		userStore.store(user);
 	}
 }

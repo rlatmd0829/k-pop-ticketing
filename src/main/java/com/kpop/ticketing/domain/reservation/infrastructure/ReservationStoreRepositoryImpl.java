@@ -3,18 +3,18 @@ package com.kpop.ticketing.domain.reservation.infrastructure;
 import org.springframework.stereotype.Repository;
 
 import com.kpop.ticketing.domain.reservation.model.Reservation;
-import com.kpop.ticketing.domain.reservation.repository.ReservationWriterRepository;
+import com.kpop.ticketing.domain.reservation.repository.ReservationStoreRepository;
 
 import lombok.RequiredArgsConstructor;
 
 @Repository
 @RequiredArgsConstructor
-public class ReservationWriterRepositoryImpl implements ReservationWriterRepository {
+public class ReservationStoreRepositoryImpl implements ReservationStoreRepository {
 
 	private final ReservationJpaRepository reservationJpaRepository;
 
 	@Override
-	public void save(Reservation reservation) {
-		reservationJpaRepository.save(reservation);
+	public Reservation save(Reservation reservation) {
+		return reservationJpaRepository.save(reservation);
 	}
 }
