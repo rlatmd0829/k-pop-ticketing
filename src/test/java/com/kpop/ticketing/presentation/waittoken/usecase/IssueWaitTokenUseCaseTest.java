@@ -12,6 +12,7 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import com.kpop.ticketing.domain.common.exception.ErrorCode;
 import com.kpop.ticketing.domain.user.components.UserReader;
 import com.kpop.ticketing.domain.user.model.User;
 import com.kpop.ticketing.domain.wait.components.WaitTokenReader;
@@ -99,5 +100,4 @@ class IssueWaitTokenUseCaseTest {
 		assertThat(waitTokenResponse.getWaitingStatus()).isEqualTo(WaitingStatus.ONGOING);
 		assertThat(waitTokenResponse.getWaitingNumber()).isEqualTo(0);
 	}
-
 }

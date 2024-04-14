@@ -14,8 +14,10 @@ public enum ErrorCode {
 	NOT_FOUND_SHOW(HttpStatus.NOT_FOUND, "존재하지 않는 공연입니다."),
 	NOT_FOUND_SEAT(HttpStatus.NOT_FOUND, "존재하지 않는 좌석입니다."),
 	NOT_FOUND_USER(HttpStatus.NOT_FOUND, "존재하지 않는 사용자입니다."),
+	NOT_FOUND_WAIT_TOKEN(HttpStatus.NOT_FOUND, "해당 사용자의 대기 토큰이 존재하지 않습니다."),
 
 	/* 409 CONFLICT */
+	DUPLICATED_WAIT_TOKEN(HttpStatus.CONFLICT, "이미 대기 토큰이 존재합니다."),
 
 	/* 500 INTERNAL_SERVER_ERROR */
 	INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에 오류가 발생했습니다.");

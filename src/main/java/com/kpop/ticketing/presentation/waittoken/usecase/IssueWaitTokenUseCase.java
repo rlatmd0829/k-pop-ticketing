@@ -5,6 +5,8 @@ import java.util.UUID;
 
 import org.springframework.stereotype.Component;
 
+import com.kpop.ticketing.domain.common.exception.CustomException;
+import com.kpop.ticketing.domain.common.exception.ErrorCode;
 import com.kpop.ticketing.domain.user.components.UserReader;
 import com.kpop.ticketing.domain.user.model.User;
 import com.kpop.ticketing.domain.wait.components.WaitTokenReader;
@@ -24,6 +26,10 @@ public class IssueWaitTokenUseCase {
 	public WaitTokenResponse execute(Long userId) {
 		User user = userReader.getUser(userId);
 		String tokenUUID = UUID.randomUUID().toString();
+
+		if (waitTokenReader.isExistWaitToken(userId)) {
+			throw new CustomException(ErrorCode.DUPLICATED_WAIT_TOKEN);
+		}
 
 		List<WaitToken> unexpiredWaitTokens = waitTokenReader.getUnexpiredWaitTokens();
 
