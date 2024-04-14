@@ -52,7 +52,7 @@ public class WaitToken {
 	}
 
 	public static WaitToken create(String tokenUUID, long ongoingCount, Integer totalCount, User user) {
-		if (ongoingCount > MAX_WAITING_NUMBER) {
+		if (ongoingCount >= MAX_WAITING_NUMBER) {
 			return new WaitToken(
 				tokenUUID,
 				totalCount - MAX_WAITING_NUMBER + 1,
