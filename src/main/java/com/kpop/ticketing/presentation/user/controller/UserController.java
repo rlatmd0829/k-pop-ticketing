@@ -25,14 +25,6 @@ public class UserController {
 	private final GetUserBalanceUseCase getUserBalanceUseCase;
 	private final ChargeUserBalanceUseCase chargeUserBalanceUseCase;
 
-	@PostMapping("/token")
-	public String createToken() {
-		return """
-			  {
-			    "token" : "fweohjdoasdjapgfdspkdo"
-			  }
-			""";
-	}
 
 	@GetMapping("/{userId}/balance")
 	public ResponseEntity<UserBalanceResponse> getBalance(
