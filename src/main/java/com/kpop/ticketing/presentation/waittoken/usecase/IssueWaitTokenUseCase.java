@@ -10,6 +10,7 @@ import com.kpop.ticketing.domain.common.exception.ErrorCode;
 import com.kpop.ticketing.domain.user.components.UserReader;
 import com.kpop.ticketing.domain.user.model.User;
 import com.kpop.ticketing.domain.wait.components.WaitTokenReader;
+import com.kpop.ticketing.domain.wait.components.WaitTokenStore;
 import com.kpop.ticketing.domain.wait.model.WaitToken;
 import com.kpop.ticketing.presentation.waittoken.dto.response.WaitTokenResponse;
 
@@ -22,6 +23,7 @@ import lombok.RequiredArgsConstructor;
 public class IssueWaitTokenUseCase {
 	private final UserReader userReader;
 	private final WaitTokenReader waitTokenReader;
+	private final WaitTokenStore waitTokenStore;
 
 	public WaitTokenResponse execute(Long userId) {
 		User user = userReader.getUser(userId);
@@ -38,6 +40,7 @@ public class IssueWaitTokenUseCase {
 			.count();
 
 		WaitToken waitToken = WaitToken.create(token, ongoingCount, unexpiredWaitTokens.size(), user);
+		waitTokenStore.save(waitToken);
 
 		return WaitTokenResponse.of(token, waitToken.getStatus(), waitToken.getNumber());
 	}

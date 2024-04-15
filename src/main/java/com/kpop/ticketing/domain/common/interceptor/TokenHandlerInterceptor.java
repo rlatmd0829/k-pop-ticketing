@@ -3,8 +3,6 @@ package com.kpop.ticketing.domain.common.interceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.kpop.ticketing.domain.common.exception.CustomException;
-import com.kpop.ticketing.domain.common.exception.ErrorCode;
 import com.kpop.ticketing.domain.wait.components.WaitTokenReader;
 import com.kpop.ticketing.domain.wait.model.WaitToken;
 
