@@ -33,7 +33,7 @@ class SeatReaderTest {
 
 	@Test
 	@DisplayName("좌석 조회 테스트")
-	void getSeatTest_success() {
+	void getSeatTest() {
 		// given
 		Long seatId = 1L;
 
@@ -45,8 +45,8 @@ class SeatReaderTest {
 	}
 
 	@Test
-	@DisplayName("좌석 조회 실패 테스트 - 좌석이 없을 경우")
-	void getSeatTest_fail_whenSeatNotExist() {
+	@DisplayName("좌석 조회 테스트 - 좌석이 없을 경우")
+	void getSeatTest_whenSeatNotExist() {
 		// given
 		Long seatId = 999L;
 

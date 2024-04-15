@@ -12,7 +12,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
-import com.kpop.ticketing.domain.common.exception.ErrorCode;
 import com.kpop.ticketing.domain.user.components.UserReader;
 import com.kpop.ticketing.domain.user.model.User;
 import com.kpop.ticketing.domain.wait.components.WaitTokenReader;
@@ -39,7 +38,7 @@ class IssueWaitTokenUseCaseTest {
 
 	@Test
 	@DisplayName("대기 토큰 발급 테스트 - 현재 활동 중인 대기 토큰이 max wating number 이상일 경우")
-	void issueWaitToken_success_whenNumberOfOngoingTokensIsOverMax() {
+	void issueWaitToken_whenNumberOfOngoingTokensIsOverMax() {
 		// given
 		FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
 			.objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
@@ -64,14 +63,14 @@ class IssueWaitTokenUseCaseTest {
 
 		// then
 		assertThat(waitTokenResponse).isNotNull();
-		assertThat(waitTokenResponse.getTokenUUID()).isNotNull();
+		assertThat(waitTokenResponse.getToken()).isNotNull();
 		assertThat(waitTokenResponse.getWaitingStatus()).isEqualTo(WaitingStatus.WAITING);
 		assertThat(waitTokenResponse.getWaitingNumber()).isEqualTo(waitTokens.size() - MAX_WAITING_NUMBER + 1);
 	}
 
 	@Test
-	@DisplayName("대기 토큰 발급 테스트 - 현재 활동 중인 대기 토큰이 max wating number 보다 적을 경우")
-	void issueWaitToken_success_whenNumberOfOngoingTokensIsLessThanMax() {
+	@DisplayName("대기 토큰 발급 테스트 - 현재 활동 중인 대기 토큰이 max waiting number 보다 적을 경우")
+	void issueWaitToken_whenNumberOfOngoingTokensIsLessThanMax() {
 		// given
 		FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
 			.objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
@@ -96,7 +95,7 @@ class IssueWaitTokenUseCaseTest {
 
 		// then
 		assertThat(waitTokenResponse).isNotNull();
-		assertThat(waitTokenResponse.getTokenUUID()).isNotNull();
+		assertThat(waitTokenResponse.getToken()).isNotNull();
 		assertThat(waitTokenResponse.getWaitingStatus()).isEqualTo(WaitingStatus.ONGOING);
 		assertThat(waitTokenResponse.getWaitingNumber()).isEqualTo(0);
 	}

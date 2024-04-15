@@ -4,6 +4,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -24,6 +25,7 @@ public class ReservationController {
 	@Operation(summary = "Create reservation", description = "좌석 예약", tags = "Reservation")
 	@PostMapping("/{seatId}/reservations")
 	public ResponseEntity<Void> create(
+		@RequestHeader String token,
 		@PathVariable Long seatId
 	) {
 		reserveSeatUseCase.execute(seatId);

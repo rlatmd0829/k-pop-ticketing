@@ -25,7 +25,7 @@ public class IssueWaitTokenUseCase {
 
 	public WaitTokenResponse execute(Long userId) {
 		User user = userReader.getUser(userId);
-		String tokenUUID = UUID.randomUUID().toString();
+		String token = UUID.randomUUID().toString();
 
 		if (waitTokenReader.isExistWaitToken(userId)) {
 			throw new CustomException(ErrorCode.DUPLICATED_WAIT_TOKEN);
@@ -37,8 +37,8 @@ public class IssueWaitTokenUseCase {
 			.filter(WaitToken::isOngoing)
 			.count();
 
-		WaitToken waitToken = WaitToken.create(tokenUUID, ongoingCount, unexpiredWaitTokens.size(), user);
+		WaitToken waitToken = WaitToken.create(token, ongoingCount, unexpiredWaitTokens.size(), user);
 
-		return WaitTokenResponse.of(tokenUUID, waitToken.getStatus(), waitToken.getNumber());
+		return WaitTokenResponse.of(token, waitToken.getStatus(), waitToken.getNumber());
 	}
 }

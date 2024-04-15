@@ -28,7 +28,7 @@ class UserReaderTest {
 
 	@Test
 	@DisplayName("유저 조회 테스트")
-	void getUserTest_success() {
+	void getUserTest() {
 		// given
 		Long userId = 1L;
 
@@ -40,8 +40,8 @@ class UserReaderTest {
 	}
 
 	@Test
-	@DisplayName("유저 조회 실패 테스트 - 유저가 없을 경우")
-	void getUserTest_fail_whenUserNotExist() {
+	@DisplayName("유저 조회 테스트 - 유저가 없을 경우")
+	void getUserTest_whenUserNotExist() {
 		// given
 		Long userId = 999L;
 

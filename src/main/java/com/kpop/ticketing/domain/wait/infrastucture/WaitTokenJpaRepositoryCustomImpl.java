@@ -19,11 +19,22 @@ public class WaitTokenJpaRepositoryCustomImpl implements WaitTokenJpaRepositoryC
 	private final JPQLQueryFactory queryFactory;
 
 	@Override
-	public Optional<WaitToken> getWaitToken(Long userId) {
+	public Optional<WaitToken> getWaitTokenByUserId(Long userId) {
 		return Optional.ofNullable(
 			queryFactory.selectFrom(waitToken)
 				.where(
 					waitToken.user.id.eq(userId),
+					waitToken.status.ne(WaitingStatus.EXPIRED)
+				)
+				.fetchOne());
+	}
+
+	@Override
+	public Optional<WaitToken> getWaitTokenByToken(String token) {
+		return Optional.ofNullable(
+			queryFactory.selectFrom(waitToken)
+				.where(
+					waitToken.token.eq(token),
 					waitToken.status.ne(WaitingStatus.EXPIRED)
 				)
 				.fetchOne());

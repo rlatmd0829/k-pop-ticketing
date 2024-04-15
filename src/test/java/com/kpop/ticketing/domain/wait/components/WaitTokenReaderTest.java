@@ -32,7 +32,7 @@ class WaitTokenReaderTest {
 
 	@Test
 	@DisplayName("대기 토큰 조회 테스트")
-	void getWaitToken_success() {
+	void getWaitToken() {
 		// given
 		FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
 			.objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
@@ -46,23 +46,23 @@ class WaitTokenReaderTest {
 			.sample();
 
 		// when
-		when(waitTokenReaderRepository.getWaitToken(anyLong())).thenReturn(Optional.of(waitToken));
+		when(waitTokenReaderRepository.getWaitTokenByUserId(anyLong())).thenReturn(Optional.of(waitToken));
 
 		// then
-		assertThat(waitTokenReader.getWaitToken(userId)).isEqualTo(waitToken);
+		assertThat(waitTokenReader.getWaitTokenByUserId(userId)).isEqualTo(waitToken);
 	}
 
 	@Test
-	@DisplayName("대기 토큰 조회 실패 테스트 - 대기 토큰이 없을 경우")
-	void getWaitToken_fail_whenWaitTokenNotExist() {
+	@DisplayName("대기 토큰 조회 테스트 - 대기 토큰이 없을 경우")
+	void getWaitToken_whenWaitTokenByUserIdNotExist() {
 		// given
 		Long userId = 999L;
 
 		// when
-		when(waitTokenReaderRepository.getWaitToken(userId)).thenReturn(Optional.empty());
+		when(waitTokenReaderRepository.getWaitTokenByUserId(userId)).thenReturn(Optional.empty());
 
 		// then
-		assertThatThrownBy(() -> waitTokenReader.getWaitToken(userId))
+		assertThatThrownBy(() -> waitTokenReader.getWaitTokenByUserId(userId))
 			.isInstanceOf(CustomException.class)
 			.hasMessage(ErrorCode.NOT_FOUND_WAIT_TOKEN.getMessage());
 	}

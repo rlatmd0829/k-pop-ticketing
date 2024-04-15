@@ -1,5 +1,9 @@
 package com.kpop.ticketing.domain.wait.model;
 
+import java.time.LocalDateTime;
+
+import com.kpop.ticketing.domain.common.exception.CustomException;
+import com.kpop.ticketing.domain.common.exception.ErrorCode;
 import com.kpop.ticketing.domain.user.model.User;
 
 import jakarta.persistence.Column;
@@ -26,8 +30,8 @@ public class WaitToken {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
-	@Column(name = "token_uuid", nullable = false)
-	private String tokenUUID;
+	@Column(name = "token", nullable = false)
+	private String token;
 
 	@Column(name = "number", nullable = false)
 	private Integer number;
@@ -36,44 +40,63 @@ public class WaitToken {
 	@Enumerated(EnumType.STRING)
 	private WaitingStatus status;
 
+	@Column(name = "expired_at", nullable = false)
+	private LocalDateTime expiredAt;
+
 	@ManyToOne
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	public boolean isOngoing() {
-		return status == WaitingStatus.ONGOING;
-	}
-
-	private WaitToken(String tokenUUID, Integer number, WaitingStatus status, User user) {
-		this.tokenUUID = tokenUUID;
+	private WaitToken(String token, Integer number, WaitingStatus status, LocalDateTime expiredAt, User user) {
+		this.token = token;
 		this.number = number;
 		this.status = status;
+		this.expiredAt = expiredAt;
 		this.user = user;
 	}
 
-	public static WaitToken create(String tokenUUID, long ongoingCount, Integer totalCount, User user) {
+	public static WaitToken create(String token, long ongoingCount, Integer totalCount, User user) {
 		if (ongoingCount >= MAX_WAITING_NUMBER) {
 			return new WaitToken(
-				tokenUUID,
+				token,
 				totalCount - MAX_WAITING_NUMBER + 1,
 				WaitingStatus.WAITING,
+				LocalDateTime.now().plusMinutes(10),
 				user
 			);
 		} else {
 			return new WaitToken(
-				tokenUUID,
+				token,
 				0,
 				WaitingStatus.ONGOING,
+				LocalDateTime.now().plusMinutes(10),
 				user
 			);
 		}
 	}
 
-	public void updateStatus(WaitingStatus status) {
+	public void setExpiredAt(LocalDateTime expiredAt) {
+		this.expiredAt = expiredAt;
+	}
+
+	public void setStatus(WaitingStatus status) {
 		this.status = status;
 	}
 
-	public void updateNumber(Integer number) {
-		this.number = number;
+	public boolean isExpired() {
+		return expiredAt.isBefore(LocalDateTime.now());
+	}
+
+	public boolean isOngoing() {
+		return status == WaitingStatus.ONGOING;
+	}
+
+	public void validateToken() {
+		if (isExpired()) {
+			throw new CustomException(ErrorCode.INVALID_EXPIRED_TOKEN);
+		}
+		if (!isOngoing()) {
+			throw new CustomException(ErrorCode.INVALID_STATUS_TOKEN);
+		}
 	}
 }

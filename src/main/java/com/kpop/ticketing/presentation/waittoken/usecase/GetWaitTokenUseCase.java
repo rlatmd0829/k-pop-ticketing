@@ -14,7 +14,7 @@ public class GetWaitTokenUseCase {
 	private final WaitTokenReader waitTokenReader;
 
 	public WaitTokenResponse execute(Long userId) {
-		WaitToken waitToken = waitTokenReader.getWaitToken(userId);
-		return WaitTokenResponse.of(waitToken.getTokenUUID(), waitToken.getStatus(), waitToken.getNumber());
+		WaitToken waitToken = waitTokenReader.getWaitTokenByUserId(userId);
+		return WaitTokenResponse.of(waitToken.getToken(), waitToken.getStatus(), waitToken.getNumber());
 	}
 }

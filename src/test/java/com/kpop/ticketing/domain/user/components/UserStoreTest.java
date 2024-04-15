@@ -43,7 +43,7 @@ class UserStoreTest {
 
 	@Test
 	@DisplayName("유저 저장 테스트")
-	void storeTest_success() {
+	void storeTest() {
 		// given
 		User user = fixtureMonkey.giveMeBuilder(User.class)
 			.set("balance", Arbitraries.integers().between(0, 10000))

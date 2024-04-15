@@ -33,7 +33,7 @@ class ShowReaderTest {
 
 	@Test
 	@DisplayName("공연 조회 테스트")
-	void getShowTest_success() {
+	void getShowTest() {
 		// given
 		Long showId = 1L;
 
@@ -45,8 +45,8 @@ class ShowReaderTest {
 	}
 
 	@Test
-	@DisplayName("공연 조회 실패 테스트 - 공연이 없을 경우")
-	void getShowTest_fail_whenShowNotExist() {
+	@DisplayName("공연 조회 테스트 - 공연이 없을 경우")
+	void getShowTest_whenShowNotExist() {
 		// given
 		Long showId = 999L;
 
@@ -61,7 +61,7 @@ class ShowReaderTest {
 
 	@Test
 	@DisplayName("현재 날짜보다 이후인 공연 목록 조회 테스트")
-	void getShowsTest_success() {
+	void getShowsTest() {
 		// given
 		FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
 			.objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)

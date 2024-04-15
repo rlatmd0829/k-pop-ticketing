@@ -16,8 +16,14 @@ import lombok.RequiredArgsConstructor;
 public class WaitTokenReader {
 	private final WaitTokenReaderRepository waitTokenReaderRepository;
 
-	public WaitToken getWaitToken(Long userId) {
-		return waitTokenReaderRepository.getWaitToken(userId).orElseThrow(
+	public WaitToken getWaitTokenByUserId(Long userId) {
+		return waitTokenReaderRepository.getWaitTokenByUserId(userId).orElseThrow(
+				() -> new CustomException(ErrorCode.NOT_FOUND_WAIT_TOKEN)
+		);
+	}
+
+	public WaitToken getWaitTokenByToken(String token) {
+		return waitTokenReaderRepository.getWaitTokenByToken(token).orElseThrow(
 				() -> new CustomException(ErrorCode.NOT_FOUND_WAIT_TOKEN)
 		);
 	}
@@ -27,6 +33,6 @@ public class WaitTokenReader {
 	}
 
 	public boolean isExistWaitToken(Long userId) {
-		return waitTokenReaderRepository.getWaitToken(userId).isPresent();
+		return waitTokenReaderRepository.getWaitTokenByUserId(userId).isPresent();
 	}
 }

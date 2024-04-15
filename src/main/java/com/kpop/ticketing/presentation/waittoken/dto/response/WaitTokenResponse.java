@@ -8,17 +8,17 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 public class WaitTokenResponse {
-	private String tokenUUID;
+	private String token;
 	private WaitingStatus waitingStatus;
 	private Integer waitingNumber;
 
-	private WaitTokenResponse(String tokenUUID, WaitingStatus waitingStatus, Integer waitingNumber) {
-		this.tokenUUID = tokenUUID;
+	private WaitTokenResponse(String token, WaitingStatus waitingStatus, Integer waitingNumber) {
+		this.token = token;
 		this.waitingStatus = waitingStatus;
 		this.waitingNumber = waitingNumber;
 	}
 
-	public static WaitTokenResponse of(String tokenUUID, WaitingStatus waitingStatus, Integer waitingNumber) {
-		return new WaitTokenResponse(tokenUUID, waitingStatus, waitingNumber);
+	public static WaitTokenResponse of(String token, WaitingStatus waitingStatus, Integer waitingNumber) {
+		return new WaitTokenResponse(token, waitingStatus, waitingNumber);
 	}
 }

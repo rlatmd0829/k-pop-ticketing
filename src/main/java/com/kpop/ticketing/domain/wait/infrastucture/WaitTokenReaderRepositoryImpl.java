@@ -16,10 +16,16 @@ public class WaitTokenReaderRepositoryImpl implements WaitTokenReaderRepository 
 	private final WaitTokenJpaRepository waitTokenJpaRepository;
 
 	@Override
-	public Optional<WaitToken> getWaitToken(Long userId) {
-		return waitTokenJpaRepository.getWaitToken(userId);
+	public Optional<WaitToken> getWaitTokenByUserId(Long userId) {
+		return waitTokenJpaRepository.getWaitTokenByUserId(userId);
 	}
 
+	@Override
+	public Optional<WaitToken> getWaitTokenByToken(String token) {
+		return waitTokenJpaRepository.getWaitTokenByToken(token);
+	}
+
+	@Override
 	public List<WaitToken> getUnexpiredWaitTokens() {
 		return waitTokenJpaRepository.getUnexpiredWaitTokens();
 	}

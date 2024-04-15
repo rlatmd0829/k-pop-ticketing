@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -25,6 +26,7 @@ public class ShowController {
 	@Operation(summary = "Get Available Shows", description = "예약 가능한 공연 리스트 조회", tags = "Show")
 	@GetMapping("/{concertId}/shows")
 	public List<ShowListResponse> getConcerts(
+		@RequestHeader String token,
 		@PathVariable Long concertId
 	) {
 		return getShowsUseCase.execute(concertId);
