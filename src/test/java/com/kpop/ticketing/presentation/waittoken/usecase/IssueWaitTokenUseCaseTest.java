@@ -11,10 +11,12 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.kpop.ticketing.domain.user.components.UserReader;
 import com.kpop.ticketing.domain.user.model.User;
 import com.kpop.ticketing.domain.wait.components.WaitTokenReader;
+import com.kpop.ticketing.domain.wait.components.WaitTokenStore;
 import com.kpop.ticketing.domain.wait.model.WaitToken;
 import com.kpop.ticketing.domain.wait.model.WaitingStatus;
 import com.kpop.ticketing.presentation.waittoken.dto.response.WaitTokenResponse;
@@ -22,6 +24,7 @@ import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;
 
+@ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 class IssueWaitTokenUseCaseTest {
 
@@ -33,6 +36,9 @@ class IssueWaitTokenUseCaseTest {
 
 	@Mock
 	private WaitTokenReader waitTokenReader;
+
+	@Mock
+	private WaitTokenStore waitTokenStore;
 
 	private static final int MAX_WAITING_NUMBER = 100;
 
@@ -59,6 +65,7 @@ class IssueWaitTokenUseCaseTest {
 		// when
 		when(userReader.getUser(anyLong())).thenReturn(user);
 		when(waitTokenReader.getUnexpiredWaitTokens()).thenReturn(waitTokens);
+		doNothing().when(waitTokenStore).save(any(WaitToken.class));
 		WaitTokenResponse waitTokenResponse = issueWaitTokenUseCase.execute(userId);
 
 		// then
@@ -91,6 +98,7 @@ class IssueWaitTokenUseCaseTest {
 		// when
 		when(userReader.getUser(anyLong())).thenReturn(user);
 		when(waitTokenReader.getUnexpiredWaitTokens()).thenReturn(waitTokens);
+		doNothing().when(waitTokenStore).save(any(WaitToken.class));
 		WaitTokenResponse waitTokenResponse = issueWaitTokenUseCase.execute(userId);
 
 		// then

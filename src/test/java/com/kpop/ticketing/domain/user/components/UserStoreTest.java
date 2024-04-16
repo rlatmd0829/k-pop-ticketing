@@ -1,7 +1,5 @@
 package com.kpop.ticketing.domain.user.components;
 
-import static org.assertj.core.api.AssertionsForClassTypes.*;
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -11,17 +9,17 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 
 import net.jqwik.api.Arbitraries;
 
-import com.kpop.ticketing.domain.common.exception.CustomException;
-import com.kpop.ticketing.domain.common.exception.ErrorCode;
 import com.kpop.ticketing.domain.user.model.User;
 import com.kpop.ticketing.domain.user.repository.UserStoreRepository;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;
 
+@ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 class UserStoreTest {
 

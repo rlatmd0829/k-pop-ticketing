@@ -6,11 +6,13 @@ import static org.mockito.Mockito.*;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.kpop.ticketing.domain.common.exception.CustomException;
 import com.kpop.ticketing.domain.common.exception.ErrorCode;
 import com.kpop.ticketing.domain.user.model.User;
 
+@ActiveProfiles("test")
 class WaitTokenTest {
 
 	@Test

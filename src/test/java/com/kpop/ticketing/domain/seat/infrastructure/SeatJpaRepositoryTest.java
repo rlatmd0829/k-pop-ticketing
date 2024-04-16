@@ -12,6 +12,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.kpop.ticketing.domain.common.config.QueryDslConfig;
 import com.kpop.ticketing.domain.concert.infrastructure.ConcertJpaRepository;
@@ -24,6 +25,7 @@ import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;
 
+@ActiveProfiles("test")
 @DataJpaTest
 @Import(QueryDslConfig.class)
 class SeatJpaRepositoryTest {
@@ -39,7 +41,10 @@ class SeatJpaRepositoryTest {
 
 	@Autowired
 	private SeatJpaRepositoryCustomImpl seatJpaRepositoryCustomImpl;
+
 	private FixtureMonkey fixtureMonkey;
+
+	private Long showId;
 
 	@BeforeEach
 	void setUp() {
@@ -49,32 +54,27 @@ class SeatJpaRepositoryTest {
 			.build();
 
 		Concert concert = fixtureMonkey.giveMeBuilder(Concert.class)
-			.set("id", 1L)
+			.set("id", null)
 			.sample();
 
 		concertJpaRepository.save(concert);
 
 		Show show = fixtureMonkey.giveMeBuilder(Show.class)
-			.set("id", 1L)
+			.set("id", null)
 			.set("capacity", 30)
 			.set("showTime", LocalDateTime.now().plusDays(1))
 			.set("concert", concert)
 			.sample();
 
 		showJpaRepository.save(show);
+		showId = show.getId();
 
 		List<Seat> seats = fixtureMonkey.giveMeBuilder(Seat.class)
+			.set("id", null)
 			.set("show", show)
 			.set("status", SeatStatus.EMPTY)
 			.sampleList(10);
 		seatJpaRepository.saveAll(seats);
-	}
-
-	@AfterEach
-	void tearDown() {
-		seatJpaRepository.deleteAll();
-		showJpaRepository.deleteAll();
-		concertJpaRepository.deleteAll();
 	}
 
 	@Test
@@ -83,12 +83,11 @@ class SeatJpaRepositoryTest {
 		// given
 
 		// when
-		List<Seat> seats = seatJpaRepositoryCustomImpl.getSeats(1L);
+		List<Seat> seats = seatJpaRepositoryCustomImpl.getSeats(showId);
 
 		// then
 		assertNotNull(seats);
 		assertFalse(seats.isEmpty());
 		assertEquals(10, seats.size());
 	}
-
 }

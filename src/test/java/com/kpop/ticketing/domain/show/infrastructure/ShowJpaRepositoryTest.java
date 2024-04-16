@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.context.annotation.Import;
+import org.springframework.test.context.ActiveProfiles;
 
 import net.jqwik.api.Arbitraries;
 
@@ -24,6 +25,7 @@ import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;
 
+@ActiveProfiles("test")
 @DataJpaTest
 @Import(QueryDslConfig.class)
 class ShowJpaRepositoryTest {
@@ -39,6 +41,8 @@ class ShowJpaRepositoryTest {
 
 	private FixtureMonkey fixtureMonkey;
 
+	private Long concertId;
+
 	@BeforeEach
 	void setUp() {
 		fixtureMonkey = FixtureMonkey.builder()
@@ -47,11 +51,13 @@ class ShowJpaRepositoryTest {
 			.build();
 
 		Concert concert = fixtureMonkey.giveMeBuilder(Concert.class)
-			.set("id", 1L)
+			.set("id", null)
 			.sample();
 		concertJpaRepository.save(concert);
+		concertId = concert.getId();
 
 		List<Show> shows = fixtureMonkey.giveMeBuilder(Show.class)
+			.set("id", null)
 			.set("concert", concert)
 			.set("showTime", LocalDateTime.now().plusDays(1))
 			.set("capacity", Arbitraries.integers().between(1, 100))
@@ -59,18 +65,12 @@ class ShowJpaRepositoryTest {
 		showJpaRepository.saveAll(shows);
 	}
 
-	@AfterEach
-	void tearDown() {
-		showJpaRepository.deleteAll();
-		concertJpaRepository.deleteAll();
-	}
-
 	@Test
 	@DisplayName("공연 조회 테스트")
 	void getShowsTest() {
 		// given
 		// when
-		List<Show> shows = showJpaRepositoryCustomImpl.getShows(1L, LocalDateTime.now());
+		List<Show> shows = showJpaRepositoryCustomImpl.getShows(concertId, LocalDateTime.now());
 		// then
 		assertNotNull(shows);
 		assertFalse(shows.isEmpty());

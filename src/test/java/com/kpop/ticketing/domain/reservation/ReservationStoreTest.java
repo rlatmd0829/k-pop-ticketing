@@ -8,6 +8,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.kpop.ticketing.domain.reservation.components.ReservationStore;
 import com.kpop.ticketing.domain.reservation.model.Reservation;
@@ -18,6 +19,7 @@ import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;
 
+@ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 class ReservationStoreTest {
 	@InjectMocks

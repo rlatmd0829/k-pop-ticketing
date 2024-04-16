@@ -12,12 +12,14 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.springframework.test.context.ActiveProfiles;
 
 import com.kpop.ticketing.domain.common.exception.CustomException;
 import com.kpop.ticketing.domain.common.exception.ErrorCode;
 import com.kpop.ticketing.domain.user.model.User;
 import com.kpop.ticketing.domain.user.repository.UserReaderRepository;
 
+@ActiveProfiles("test")
 @ExtendWith(MockitoExtension.class)
 class UserReaderTest {
 	@InjectMocks
