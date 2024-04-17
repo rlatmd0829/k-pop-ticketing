@@ -1,4 +1,4 @@
-package com.kpop.ticketing.domain.wait.model;
+package com.kpop.ticketing.domain.waittoken.model;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.*;

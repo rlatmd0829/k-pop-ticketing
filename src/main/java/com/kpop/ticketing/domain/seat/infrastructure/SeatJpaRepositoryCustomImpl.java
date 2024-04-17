@@ -30,10 +30,17 @@ public class SeatJpaRepositoryCustomImpl implements SeatJpaRepositoryCustom {
 	}
 
 	@Override
-	public List<Seat> getSeats(Long showId) {
+	public List<Seat> getSeatsByShowIdAndStatus(Long showId, SeatStatus status) {
 		return jpaQueryFactory.selectFrom(seat)
 			.join(seat.show, show)
-			.where(show.id.eq(showId), seat.status.eq(SeatStatus.EMPTY))
+			.where(show.id.eq(showId), seat.status.eq(status))
+			.fetch();
+	}
+
+	@Override
+	public List<Seat> getSeatsByStatus(SeatStatus status) {
+		return jpaQueryFactory.selectFrom(seat)
+			.where(seat.status.eq(status))
 			.fetch();
 	}
 }

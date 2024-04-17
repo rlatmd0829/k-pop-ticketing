@@ -3,8 +3,8 @@ package com.kpop.ticketing.domain.common.interceptor;
 import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.kpop.ticketing.domain.wait.components.WaitTokenReader;
-import com.kpop.ticketing.domain.wait.model.WaitToken;
+import com.kpop.ticketing.domain.waittoken.components.WaitTokenReader;
+import com.kpop.ticketing.domain.waittoken.model.WaitToken;
 
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;

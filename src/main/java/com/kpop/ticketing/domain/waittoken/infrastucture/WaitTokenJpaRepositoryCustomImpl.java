@@ -1,14 +1,14 @@
-package com.kpop.ticketing.domain.wait.infrastucture;
+package com.kpop.ticketing.domain.waittoken.infrastucture;
 
-import static com.kpop.ticketing.domain.wait.model.QWaitToken.*;
+import static com.kpop.ticketing.domain.waittoken.model.QWaitToken.*;
 
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.stereotype.Repository;
 
-import com.kpop.ticketing.domain.wait.model.WaitToken;
-import com.kpop.ticketing.domain.wait.model.WaitingStatus;
+import com.kpop.ticketing.domain.waittoken.model.WaitToken;
+import com.kpop.ticketing.domain.waittoken.model.WaitingStatus;
 import com.querydsl.jpa.JPQLQueryFactory;
 
 import lombok.RequiredArgsConstructor;

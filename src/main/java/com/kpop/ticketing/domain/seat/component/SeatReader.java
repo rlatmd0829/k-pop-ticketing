@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import com.kpop.ticketing.domain.common.exception.CustomException;
 import com.kpop.ticketing.domain.common.exception.ErrorCode;
 import com.kpop.ticketing.domain.seat.model.Seat;
+import com.kpop.ticketing.domain.seat.model.SeatStatus;
 import com.kpop.ticketing.domain.seat.repository.SeatReaderRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -20,7 +21,11 @@ public class SeatReader {
 		return seatReaderRepository.getSeat(seatId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_SEAT));
 	}
 
-	public List<Seat> getSeats(Long showId) {
-		return seatReaderRepository.getSeats(showId);
+	public List<Seat> getEmptySeatsForShow(Long showId) {
+		return seatReaderRepository.getSeatsByShowIdAndStatus(showId, SeatStatus.EMPTY);
+	}
+
+	public List<Seat> getPendingSeats() {
+		return seatReaderRepository.getSeatsByStatus(SeatStatus.PENDING);
 	}
 }

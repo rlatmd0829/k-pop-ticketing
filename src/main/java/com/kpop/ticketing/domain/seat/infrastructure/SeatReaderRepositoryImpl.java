@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.stereotype.Repository;
 
 import com.kpop.ticketing.domain.seat.model.Seat;
+import com.kpop.ticketing.domain.seat.model.SeatStatus;
 import com.kpop.ticketing.domain.seat.repository.SeatReaderRepository;
 
 import lombok.RequiredArgsConstructor;
@@ -21,7 +22,13 @@ public class SeatReaderRepositoryImpl implements SeatReaderRepository {
 	}
 
 	@Override
-	public List<Seat> getSeats(Long showId) {
-		return seatJpaRepository.getSeats(showId);
+	public List<Seat> getSeatsByShowIdAndStatus(Long showId, SeatStatus status) {
+		return seatJpaRepository.getSeatsByShowIdAndStatus(showId, status);
 	}
+
+	@Override
+	public List<Seat> getSeatsByStatus(SeatStatus status) {
+		return seatJpaRepository.getSeatsByStatus(status);
+	}
+
 }

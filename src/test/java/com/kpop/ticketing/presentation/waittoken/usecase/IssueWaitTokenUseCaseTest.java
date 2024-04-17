@@ -15,10 +15,10 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.kpop.ticketing.domain.user.components.UserReader;
 import com.kpop.ticketing.domain.user.model.User;
-import com.kpop.ticketing.domain.wait.components.WaitTokenReader;
-import com.kpop.ticketing.domain.wait.components.WaitTokenStore;
-import com.kpop.ticketing.domain.wait.model.WaitToken;
-import com.kpop.ticketing.domain.wait.model.WaitingStatus;
+import com.kpop.ticketing.domain.waittoken.components.WaitTokenReader;
+import com.kpop.ticketing.domain.waittoken.components.WaitTokenStore;
+import com.kpop.ticketing.domain.waittoken.model.WaitToken;
+import com.kpop.ticketing.domain.waittoken.model.WaitingStatus;
 import com.kpop.ticketing.presentation.waittoken.dto.response.WaitTokenResponse;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;

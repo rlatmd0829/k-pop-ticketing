@@ -1,4 +1,4 @@
-package com.kpop.ticketing.domain.wait.model;
+package com.kpop.ticketing.domain.waittoken.model;
 
 public enum WaitingStatus {
 	WAITING, ONGOING, EXPIRED

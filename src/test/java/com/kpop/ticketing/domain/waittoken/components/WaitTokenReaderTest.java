@@ -1,4 +1,4 @@
-package com.kpop.ticketing.domain.wait.components;
+package com.kpop.ticketing.domain.waittoken.components;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.ArgumentMatchers.*;
@@ -16,8 +16,8 @@ import org.springframework.test.context.ActiveProfiles;
 
 import com.kpop.ticketing.domain.common.exception.CustomException;
 import com.kpop.ticketing.domain.common.exception.ErrorCode;
-import com.kpop.ticketing.domain.wait.model.WaitToken;
-import com.kpop.ticketing.domain.wait.repository.WaitTokenReaderRepository;
+import com.kpop.ticketing.domain.waittoken.model.WaitToken;
+import com.kpop.ticketing.domain.waittoken.repository.WaitTokenReaderRepository;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
 import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPlugin;

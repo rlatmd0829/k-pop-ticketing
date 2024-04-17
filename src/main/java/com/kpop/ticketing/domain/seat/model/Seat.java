@@ -1,6 +1,9 @@
 package com.kpop.ticketing.domain.seat.model;
 
+import java.time.LocalDateTime;
+
 import com.kpop.ticketing.domain.show.model.Show;
+import com.kpop.ticketing.domain.waittoken.model.WaitingStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -34,11 +37,33 @@ public class Seat {
 	@Enumerated(EnumType.STRING)
 	private SeatStatus status;
 
+	@Column(name = "expired_at")
+	private LocalDateTime expiredAt;
+
 	@ManyToOne
 	@JoinColumn(name = "show_id")
 	private Show show;
 
+	public void setStatus(SeatStatus status) {
+		this.status = status;
+	}
+
+	public void pending() {
+		this.status = SeatStatus.PENDING;
+		this.expiredAt = LocalDateTime.now().plusMinutes(5);
+	}
+
 	public void reserve() {
 		this.status = SeatStatus.RESERVED;
+	}
+
+	public boolean isExpired() {
+		return expiredAt.isBefore(LocalDateTime.now());
+	}
+
+	public void processExpiredSeat() {
+		if (isExpired()) {
+			setStatus(SeatStatus.EMPTY);
+		}
 	}
 }

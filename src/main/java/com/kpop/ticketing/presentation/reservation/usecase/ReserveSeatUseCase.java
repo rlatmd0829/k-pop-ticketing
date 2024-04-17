@@ -26,7 +26,7 @@ public class ReserveSeatUseCase {
 		// TODO Token에서 userId 가져오기
 		User user = userReader.getUser(1L);
 		Seat seat = seatReader.getSeat(seatId);
-		seat.reserve();
+		seat.pending();
 		// 생성은 여기서 하고 컴포넌트에 안보내느게 나을듯?
 		Reservation reservation = Reservation.create(seat, user);
 

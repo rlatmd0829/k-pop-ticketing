@@ -22,7 +22,7 @@ public class GetSeatsUseCase {
 	public List<SeatListResponse> execute(Long showId) {
 		showReader.getShow(showId);
 
-		List<Seat> seats = seatReader.getSeats(showId);
-		return seats.stream().map(SeatListResponse::from).toList();
+		List<Seat> emptySeats = seatReader.getEmptySeatsForShow(showId);
+		return emptySeats.stream().map(SeatListResponse::from).toList();
 	}
 }

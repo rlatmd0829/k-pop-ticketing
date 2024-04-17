@@ -11,10 +11,8 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.context.ActiveProfiles;
 
-import com.kpop.ticketing.domain.common.exception.CustomException;
-import com.kpop.ticketing.domain.common.exception.ErrorCode;
-import com.kpop.ticketing.domain.wait.components.WaitTokenReader;
-import com.kpop.ticketing.domain.wait.model.WaitToken;
+import com.kpop.ticketing.domain.waittoken.components.WaitTokenReader;
+import com.kpop.ticketing.domain.waittoken.model.WaitToken;
 import com.kpop.ticketing.presentation.waittoken.dto.response.WaitTokenResponse;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;

@@ -1,6 +1,6 @@
 package com.kpop.ticketing.presentation.waittoken.dto.response;
 
-import com.kpop.ticketing.domain.wait.model.WaitingStatus;
+import com.kpop.ticketing.domain.waittoken.model.WaitingStatus;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;

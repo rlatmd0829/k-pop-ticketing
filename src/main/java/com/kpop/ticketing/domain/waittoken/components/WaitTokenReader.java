@@ -1,4 +1,4 @@
-package com.kpop.ticketing.domain.wait.components;
+package com.kpop.ticketing.domain.waittoken.components;
 
 import java.util.List;
 
@@ -6,8 +6,8 @@ import org.springframework.stereotype.Service;
 
 import com.kpop.ticketing.domain.common.exception.CustomException;
 import com.kpop.ticketing.domain.common.exception.ErrorCode;
-import com.kpop.ticketing.domain.wait.model.WaitToken;
-import com.kpop.ticketing.domain.wait.repository.WaitTokenReaderRepository;
+import com.kpop.ticketing.domain.waittoken.model.WaitToken;
+import com.kpop.ticketing.domain.waittoken.repository.WaitTokenReaderRepository;
 
 import lombok.RequiredArgsConstructor;
 

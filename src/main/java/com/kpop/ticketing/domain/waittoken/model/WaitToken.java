@@ -1,4 +1,4 @@
-package com.kpop.ticketing.domain.wait.model;
+package com.kpop.ticketing.domain.waittoken.model;
 
 import java.time.LocalDateTime;
 
@@ -97,6 +97,12 @@ public class WaitToken {
 		}
 		if (!isOngoing()) {
 			throw new CustomException(ErrorCode.INVALID_STATUS_TOKEN);
+		}
+	}
+
+	public void processExpiredToken() {
+		if (isExpired()) {
+			setStatus(WaitingStatus.EXPIRED);
 		}
 	}
 }
