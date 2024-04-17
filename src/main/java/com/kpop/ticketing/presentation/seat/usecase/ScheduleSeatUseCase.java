@@ -19,7 +19,7 @@ public class ScheduleSeatUseCase {
 
 	@Scheduled(fixedRate = 60000)
 	public void execute() {
-		log.info("ScheduleSeatUseCase.pendingSeatsExpired");
-		seatReader.getPendingSeats().forEach(Seat::processExpiredSeat);
+		log.info("ScheduleSeatUseCase.resetSeatIfHoldTimeExceeded");
+		seatReader.getHoldSeats().forEach(Seat::resetSeatIfHoldTimeExceeded);
 	}
 }

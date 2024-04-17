@@ -3,7 +3,6 @@ package com.kpop.ticketing.domain.seat.model;
 import java.time.LocalDateTime;
 
 import com.kpop.ticketing.domain.show.model.Show;
-import com.kpop.ticketing.domain.waittoken.model.WaitingStatus;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -38,7 +37,7 @@ public class Seat {
 	private SeatStatus status;
 
 	@Column(name = "expired_at")
-	private LocalDateTime expiredAt;
+	private LocalDateTime holdTime;
 
 	@ManyToOne
 	@JoinColumn(name = "show_id")
@@ -48,21 +47,37 @@ public class Seat {
 		this.status = status;
 	}
 
-	public void pending() {
-		this.status = SeatStatus.PENDING;
-		this.expiredAt = LocalDateTime.now().plusMinutes(5);
+	public void setHoldTime(LocalDateTime holdTime) {
+		this.holdTime = holdTime;
+	}
+
+	private Seat(String number, Integer amount, SeatStatus status, LocalDateTime holdTime, Show show) {
+		this.number = number;
+		this.amount = amount;
+		this.status = status;
+		this.holdTime = holdTime;
+		this.show = show;
+	}
+
+	public static Seat create(String number, Integer amount, Show show) {
+		return new Seat(number, amount, SeatStatus.EMPTY, null, show);
+	}
+
+	public void hold() {
+		this.status = SeatStatus.HOLD;
+		this.holdTime = LocalDateTime.now().plusMinutes(5);
 	}
 
 	public void reserve() {
 		this.status = SeatStatus.RESERVED;
 	}
 
-	public boolean isExpired() {
-		return expiredAt.isBefore(LocalDateTime.now());
+	public boolean isHoldTimeExceeded() {
+		return holdTime.isBefore(LocalDateTime.now());
 	}
 
-	public void processExpiredSeat() {
-		if (isExpired()) {
+	public void resetSeatIfHoldTimeExceeded() {
+		if (isHoldTimeExceeded()) {
 			setStatus(SeatStatus.EMPTY);
 		}
 	}

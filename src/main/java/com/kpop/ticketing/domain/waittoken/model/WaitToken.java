@@ -100,7 +100,7 @@ public class WaitToken {
 		}
 	}
 
-	public void processExpiredToken() {
+	public void setStatusIfTokenExpired() {
 		if (isExpired()) {
 			setStatus(WaitingStatus.EXPIRED);
 		}

@@ -1,7 +1,5 @@
 package com.kpop.ticketing.presentation.waittoken.usecase;
 
-import java.util.List;
-
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
@@ -21,7 +19,7 @@ public class ScheduleWaitTokenUseCase {
 
 	@Scheduled(fixedDelay = 60000)
 	public void execute() {
-		log.info("ScheduleWaitTokenUseCase.expireWaitToken");
-		waitTokenReader.getUnexpiredWaitTokens().forEach(WaitToken::processExpiredToken);
+		log.info("ScheduleWaitTokenUseCase.setStatusIfTokenExpired");
+		waitTokenReader.getUnexpiredWaitTokens().forEach(WaitToken::setStatusIfTokenExpired);
 	}
 }

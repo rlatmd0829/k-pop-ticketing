@@ -25,7 +25,7 @@ public class SeatReader {
 		return seatReaderRepository.getSeatsByShowIdAndStatus(showId, SeatStatus.EMPTY);
 	}
 
-	public List<Seat> getPendingSeats() {
-		return seatReaderRepository.getSeatsByStatus(SeatStatus.PENDING);
+	public List<Seat> getHoldSeats() {
+		return seatReaderRepository.getSeatsByStatus(SeatStatus.HOLD);
 	}
 }

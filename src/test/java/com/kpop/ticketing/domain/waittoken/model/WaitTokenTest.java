@@ -58,4 +58,28 @@ class WaitTokenTest {
 			.isInstanceOf(CustomException.class)
 			.hasMessage(ErrorCode.INVALID_STATUS_TOKEN.getMessage());
 	}
+
+	@Test
+	@DisplayName("대기 토큰 만료 처리 테스트 - 토큰 만료시간이 지났을 경우")
+	void setStatusIfExpiredTest_whenTokenExpired() {
+		User user = mock(User.class);
+		WaitToken waitToken = WaitToken.create("token", 10, 10, user);
+		waitToken.setExpiredAt(waitToken.getExpiredAt().minusMinutes(15));
+
+		waitToken.setStatusIfTokenExpired();
+
+		assertEquals(WaitingStatus.EXPIRED, waitToken.getStatus());
+	}
+
+	@Test
+	@DisplayName("대기 토큰 만료 처리 테스트 - 토큰 만료시간이 지나지 않았을 경우")
+	void setStatusIfExpiredTest_whenTokenNotExpired() {
+		User user = mock(User.class);
+		WaitToken waitToken = WaitToken.create("token", 10, 10, user);
+		waitToken.setExpiredAt(waitToken.getExpiredAt().plusMinutes(15));
+
+		waitToken.setStatusIfTokenExpired();
+
+		assertEquals(WaitingStatus.ONGOING, waitToken.getStatus());
+	}
 }

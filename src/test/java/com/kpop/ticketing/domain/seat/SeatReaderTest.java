@@ -19,6 +19,7 @@ import com.kpop.ticketing.domain.common.exception.CustomException;
 import com.kpop.ticketing.domain.common.exception.ErrorCode;
 import com.kpop.ticketing.domain.seat.component.SeatReader;
 import com.kpop.ticketing.domain.seat.model.Seat;
+import com.kpop.ticketing.domain.seat.model.SeatStatus;
 import com.kpop.ticketing.domain.seat.repository.SeatReaderRepository;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.FieldReflectionArbitraryIntrospector;
@@ -63,20 +64,21 @@ class SeatReaderTest {
 
 	@Test
 	@DisplayName("예약 가능한 좌석 목록 조회 테스트")
-	void getSeatsTest_success() {
+	void getEmptySeatsTest_success() {
 	    // given
 		FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
 			.objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
 			.plugin(new JakartaValidationPlugin())
 			.build();
 
-		List<Seat> seats = fixtureMonkey.giveMe(Seat.class, 3);
+		List<Seat> seats = fixtureMonkey.giveMeBuilder(Seat.class)
+			.set("status", SeatStatus.EMPTY)
+			.sampleList(10);
 
 	    // when
-	    when(seatReaderRepository.getSeats(anyLong())).thenReturn(seats);
+	    when(seatReaderRepository.getSeatsByShowIdAndStatus(anyLong(), any())).thenReturn(seats);
 
 	    // then
-		assertNotNull(seatReader.getSeats(1L));
-
+		assertNotNull(seatReader.getEmptySeatsForShow(1L));
 	}
 }

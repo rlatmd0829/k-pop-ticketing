@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.*;
 import java.time.LocalDateTime;
 import java.util.List;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -69,21 +68,42 @@ class SeatJpaRepositoryTest {
 		showJpaRepository.save(show);
 		showId = show.getId();
 
-		List<Seat> seats = fixtureMonkey.giveMeBuilder(Seat.class)
+		List<Seat> emptySeats = fixtureMonkey.giveMeBuilder(Seat.class)
 			.set("id", null)
 			.set("show", show)
 			.set("status", SeatStatus.EMPTY)
 			.sampleList(10);
-		seatJpaRepository.saveAll(seats);
+		seatJpaRepository.saveAll(emptySeats);
+
+		List<Seat> holdSeats = fixtureMonkey.giveMeBuilder(Seat.class)
+			.set("id", null)
+			.set("show", show)
+			.set("status", SeatStatus.HOLD)
+			.sampleList(10);
+		seatJpaRepository.saveAll(holdSeats);
 	}
 
 	@Test
-	@DisplayName("좌석 조회 테스트")
-	void getSeatsTest() {
+	@DisplayName("빈 좌석 조회 테스트")
+	void getEmptySeatsTest() {
 		// given
 
 		// when
-		List<Seat> seats = seatJpaRepositoryCustomImpl.getSeats(showId);
+		List<Seat> seats = seatJpaRepositoryCustomImpl.getSeatsByShowIdAndStatus(showId, SeatStatus.EMPTY);
+
+		// then
+		assertNotNull(seats);
+		assertFalse(seats.isEmpty());
+		assertEquals(10, seats.size());
+	}
+
+	@Test
+	@DisplayName("대기 좌석 조회 테스트")
+	void getHoldSeatsTest() {
+		// given
+
+		// when
+		List<Seat> seats = seatJpaRepositoryCustomImpl.getSeatsByShowIdAndStatus(showId, SeatStatus.HOLD);
 
 		// then
 		assertNotNull(seats);
