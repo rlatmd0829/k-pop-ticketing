@@ -20,6 +20,6 @@ public class ChargeUserBalanceUseCase {
 	public void execute(Long userId, UserBalanceRequest userBalanceRequest) {
 		User user = userReader.getUser(userId);
 		user.chargeBalance(userBalanceRequest.getChargeAmount());
-		userStore.store(user);
+		userStore.save(user);
 	}
 }

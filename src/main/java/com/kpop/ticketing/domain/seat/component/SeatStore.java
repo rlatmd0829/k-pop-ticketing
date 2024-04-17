@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class SeatStore {
 	private final SeatStoreRepository seatStoreRepository;
 
-	public void store(Seat seat) {
+	public void save(Seat seat) {
 		seatStoreRepository.save(seat);
 	}
 }

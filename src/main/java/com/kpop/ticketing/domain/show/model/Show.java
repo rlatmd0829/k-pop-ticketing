@@ -13,10 +13,12 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "shows")
 @Getter
+@NoArgsConstructor
 public class Show {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -31,4 +33,14 @@ public class Show {
 	@ManyToOne
 	@JoinColumn(name = "concert_id")
 	private Concert concert;
+
+	private Show(LocalDateTime showTime, Integer capacity, Concert concert) {
+		this.showTime = showTime;
+		this.capacity = capacity;
+		this.concert = concert;
+	}
+
+	public static Show create(LocalDateTime showTime, Integer capacity, Concert concert) {
+		return new Show(showTime, capacity, concert);
+	}
 }

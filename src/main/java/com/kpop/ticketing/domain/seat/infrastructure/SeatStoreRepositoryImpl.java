@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class SeatStoreRepositoryImpl implements SeatStoreRepository {
 	private final SeatJpaRepository seatJpaRepository;
 
-	public void save(Seat seat) {
-		seatJpaRepository.save(seat);
+	public Seat save(Seat seat) {
+		return seatJpaRepository.save(seat);
 	}
 }

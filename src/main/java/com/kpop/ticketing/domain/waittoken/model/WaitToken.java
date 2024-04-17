@@ -61,7 +61,7 @@ public class WaitToken {
 				token,
 				totalCount - MAX_WAITING_NUMBER + 1,
 				WaitingStatus.WAITING,
-				LocalDateTime.now().plusMinutes(10),
+				LocalDateTime.now().plusDays(1000),
 				user
 			);
 		} else {
@@ -89,6 +89,18 @@ public class WaitToken {
 
 	public boolean isOngoing() {
 		return status == WaitingStatus.ONGOING;
+	}
+
+	public boolean isWaiting() {
+		return status == WaitingStatus.WAITING;
+	}
+
+	public void expire() {
+		setStatus(WaitingStatus.EXPIRED);
+	}
+
+	public void onGoing() {
+		setStatus(WaitingStatus.ONGOING);
 	}
 
 	public void validateToken() {

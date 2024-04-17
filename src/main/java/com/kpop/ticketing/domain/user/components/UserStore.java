@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class UserStore {
 	private final UserStoreRepository userStoreRepository;
 
-	public User store(User user) {
-		return userStoreRepository.save(user);
+	public void save(User user) {
+		userStoreRepository.save(user);
 	}
 }

@@ -31,7 +31,7 @@ public class ReserveSeatUseCase {
 		Reservation reservation = Reservation.create(seat, user);
 
 		reservationStore.store(reservation);
-		seatStore.store(seat);
+		seatStore.save(seat);
 	}
 
 }

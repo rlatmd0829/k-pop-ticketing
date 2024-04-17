@@ -44,6 +44,7 @@ public class WaitTokenJpaRepositoryCustomImpl implements WaitTokenJpaRepositoryC
 	public List<WaitToken> getUnexpiredWaitTokens() {
 		return queryFactory.selectFrom(waitToken)
 			.where(waitToken.status.ne(WaitingStatus.EXPIRED))
+			.orderBy(waitToken.number.asc())
 			.fetch();
 	}
 }
