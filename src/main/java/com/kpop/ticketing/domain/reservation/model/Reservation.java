@@ -38,7 +38,7 @@ public class Reservation {
 	private User user;
 
 	private Reservation(Seat seat, User user) {
-		this.status = ReservationStatus.EMPTY;
+		this.status = ReservationStatus.PENDING;
 		this.seat = seat;
 		this.user = user;
 	}

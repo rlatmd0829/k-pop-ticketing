@@ -1,4 +1,4 @@
-package com.kpop.ticketing.unit.domain.show;
+package com.kpop.ticketing.unit.domain.show.components;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.*;

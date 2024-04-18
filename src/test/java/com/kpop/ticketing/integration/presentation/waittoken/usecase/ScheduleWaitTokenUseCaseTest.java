@@ -1,13 +1,13 @@
 package com.kpop.ticketing.integration.presentation.waittoken.usecase;
 
 import static org.assertj.core.api.AssertionsForClassTypes.*;
-import static org.mockito.Mockito.*;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
@@ -19,8 +19,11 @@ import com.kpop.ticketing.domain.waittoken.components.WaitTokenStore;
 import com.kpop.ticketing.domain.waittoken.model.WaitToken;
 import com.kpop.ticketing.presentation.waittoken.usecase.ScheduleWaitTokenUseCase;
 
+import jakarta.transaction.Transactional;
+
 @ActiveProfiles("test")
 @SpringBootTest
+@Transactional
 class ScheduleWaitTokenUseCaseTest {
 
 	@Autowired

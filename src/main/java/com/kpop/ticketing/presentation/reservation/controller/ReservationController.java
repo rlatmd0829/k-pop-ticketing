@@ -28,7 +28,7 @@ public class ReservationController {
 		@RequestHeader String token,
 		@PathVariable Long seatId
 	) {
-		reserveSeatUseCase.execute(seatId);
+		reserveSeatUseCase.execute(token, seatId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
 }

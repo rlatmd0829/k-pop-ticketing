@@ -2,6 +2,8 @@ package com.kpop.ticketing.domain.seat.model;
 
 import java.time.LocalDateTime;
 
+import com.kpop.ticketing.domain.common.exception.CustomException;
+import com.kpop.ticketing.domain.common.exception.ErrorCode;
 import com.kpop.ticketing.domain.show.model.Show;
 
 import jakarta.persistence.Column;
@@ -36,7 +38,7 @@ public class Seat {
 	@Enumerated(EnumType.STRING)
 	private SeatStatus status;
 
-	@Column(name = "expired_at")
+	@Column(name = "hold_time")
 	private LocalDateTime holdTime;
 
 	@ManyToOne
@@ -68,8 +70,14 @@ public class Seat {
 		this.holdTime = LocalDateTime.now().plusMinutes(5);
 	}
 
-	public void reserve() {
-		this.status = SeatStatus.RESERVED;
+	public boolean isEmpty() {
+		return this.status == SeatStatus.EMPTY;
+	}
+
+	public void validateSeatStatus() {
+		if (!isEmpty()) {
+			throw new CustomException(ErrorCode.DUPLICATED_RESERVATION_SEAT);
+		}
 	}
 
 	public boolean isHoldTimeExceeded() {

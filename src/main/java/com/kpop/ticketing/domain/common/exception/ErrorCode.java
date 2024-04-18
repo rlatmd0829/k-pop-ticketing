@@ -20,6 +20,7 @@ public enum ErrorCode {
 
 	/* 409 CONFLICT */
 	DUPLICATED_WAIT_TOKEN(HttpStatus.CONFLICT, "이미 대기 토큰이 존재합니다."),
+	DUPLICATED_RESERVATION_SEAT(HttpStatus.CONFLICT, "이미 예약된 좌석입니다."),
 
 	/* 500 INTERNAL_SERVER_ERROR */
 	INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, "서버에 오류가 발생했습니다.");

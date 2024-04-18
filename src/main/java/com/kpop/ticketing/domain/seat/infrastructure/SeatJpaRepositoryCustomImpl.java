@@ -21,11 +21,10 @@ public class SeatJpaRepositoryCustomImpl implements SeatJpaRepositoryCustom {
 	private final JPAQueryFactory jpaQueryFactory;
 
 	@Override
-	public Optional<Seat> getSeat(Long showId) {
+	public Optional<Seat> getSeat(Long seatId) {
 		return Optional.ofNullable(
 			jpaQueryFactory.selectFrom(seat)
-			.join(seat.show, show)
-			.where(show.id.eq(showId))
+			.where(seat.id.eq(seatId))
 			.fetchOne());
 	}
 

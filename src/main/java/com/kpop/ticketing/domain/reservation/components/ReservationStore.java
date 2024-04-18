@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 public class ReservationStore {
 	private final ReservationStoreRepository reservationStoreRepository;
 
-	public Reservation store(Reservation reservation) {
+	public Reservation save(Reservation reservation) {
 		return reservationStoreRepository.save(reservation);
 	}
 
