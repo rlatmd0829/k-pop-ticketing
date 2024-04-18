@@ -18,3 +18,4 @@
 ### 🔗 [ERD](https://github.com/rlatmd0829/k-pop-ticketing/wiki/ERD)
 ### 🔗 [API 명세](https://github.com/rlatmd0829/k-pop-ticketing/wiki/API-%EB%AA%85%EC%84%B8)
 ### 🔗 [Swagger](https://github.com/rlatmd0829/k-pop-ticketing/wiki/Swagger)
+### 🔗 [트러블슈팅](https://github.com/rlatmd0829/k-pop-ticketing/wiki/%ED%8A%B8%EB%9F%AC%EB%B8%94-%EC%8A%88%ED%8C%85)
