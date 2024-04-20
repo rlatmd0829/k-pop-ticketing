@@ -31,4 +31,6 @@ public class ReservationController {
 		reserveSeatUseCase.execute(token, seatId);
 		return new ResponseEntity<>(HttpStatus.OK);
 	}
+
+
 }

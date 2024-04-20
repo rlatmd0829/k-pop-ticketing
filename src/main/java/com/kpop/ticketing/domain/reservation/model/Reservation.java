@@ -29,6 +29,9 @@ public class Reservation {
 	@Enumerated(EnumType.STRING)
 	private ReservationStatus status;
 
+	@Column(name = "amount")
+	private Integer amount;
+
 	@ManyToOne
 	@JoinColumn(name = "seat_id")
 	private Seat seat;
@@ -39,11 +42,16 @@ public class Reservation {
 
 	private Reservation(Seat seat, User user) {
 		this.status = ReservationStatus.PENDING;
+		this.amount = seat.getAmount();
 		this.seat = seat;
 		this.user = user;
 	}
 
 	public static Reservation create(Seat seat, User user) {
 		return new Reservation(seat, user);
+	}
+
+	public void complete() {
+		this.status = ReservationStatus.COMPLETED;
 	}
 }

@@ -42,4 +42,14 @@ public class User {
 		}
 		this.balance += chargeAmount;
 	}
+
+	public void withdrawBalance(Integer withdrawAmount) {
+		if (withdrawAmount < 0) {
+			throw new CustomException(ErrorCode.INVALID_NEGATIVE_WITHDRAW_AMOUNT);
+		}
+		if (this.balance < withdrawAmount) {
+			throw new CustomException(ErrorCode.INVALID_BALANCE);
+		}
+		this.balance -= withdrawAmount;
+	}
 }
