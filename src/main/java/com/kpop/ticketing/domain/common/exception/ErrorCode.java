@@ -20,6 +20,7 @@ public enum ErrorCode {
 	NOT_FOUND_USER(HttpStatus.NOT_FOUND, "존재하지 않는 사용자입니다."),
 	NOT_FOUND_WAIT_TOKEN(HttpStatus.NOT_FOUND, "해당 사용자의 대기 토큰이 존재하지 않습니다."),
 	NOT_FOUND_RESERVATION(HttpStatus.NOT_FOUND, "존재하지 않는 예약입니다."),
+	NOT_FOUND_PAYMENT(HttpStatus.NOT_FOUND, "존재하지 않는 결제입니다."),
 
 	/* 409 CONFLICT */
 	DUPLICATED_WAIT_TOKEN(HttpStatus.CONFLICT, "이미 대기 토큰이 존재합니다."),

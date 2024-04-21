@@ -2,7 +2,7 @@ package com.kpop.ticketing.unit.domain.reservation.model;
 
 import org.junit.jupiter.api.Test;
 
-public class ReservationTest {
+class ReservationTest {
 
 	@Test
 	void test() {
