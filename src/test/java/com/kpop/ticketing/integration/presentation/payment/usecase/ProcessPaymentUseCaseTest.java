@@ -17,6 +17,8 @@ import com.kpop.ticketing.domain.reservation.model.Reservation;
 import com.kpop.ticketing.domain.reservation.model.ReservationStatus;
 import com.kpop.ticketing.presentation.payment.usecase.ProcessPaymentUseCase;
 
+import jakarta.transaction.Transactional;
+
 @SpringBootTest
 @ActiveProfiles("test")
 @Sql(scripts = {
@@ -26,6 +28,7 @@ import com.kpop.ticketing.presentation.payment.usecase.ProcessPaymentUseCase;
 	"classpath:data/seats.sql",
 	"classpath:data/reservations.sql",
 })
+@Transactional
 class ProcessPaymentUseCaseTest {
 	@Autowired
 	private ProcessPaymentUseCase processPaymentUseCase;
