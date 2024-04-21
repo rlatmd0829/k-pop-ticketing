@@ -17,7 +17,7 @@ import com.kpop.ticketing.domain.reservation.model.Reservation;
 import com.kpop.ticketing.domain.reservation.model.ReservationStatus;
 import com.kpop.ticketing.presentation.payment.usecase.ProcessPaymentUseCase;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
 @ActiveProfiles("test")

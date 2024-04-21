@@ -9,7 +9,7 @@ import org.springframework.stereotype.Component;
 import com.kpop.ticketing.domain.waittoken.components.WaitTokenReader;
 import com.kpop.ticketing.domain.waittoken.model.WaitToken;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 

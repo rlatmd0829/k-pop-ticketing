@@ -7,10 +7,10 @@ import java.util.List;
 
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ActiveProfiles;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kpop.ticketing.domain.user.components.UserStore;
 import com.kpop.ticketing.domain.user.model.User;
@@ -18,8 +18,6 @@ import com.kpop.ticketing.domain.waittoken.components.WaitTokenReader;
 import com.kpop.ticketing.domain.waittoken.components.WaitTokenStore;
 import com.kpop.ticketing.domain.waittoken.model.WaitToken;
 import com.kpop.ticketing.presentation.waittoken.usecase.ScheduleWaitTokenUseCase;
-
-import jakarta.transaction.Transactional;
 
 @ActiveProfiles("test")
 @SpringBootTest

@@ -20,7 +20,7 @@ import com.kpop.ticketing.domain.show.components.ShowStore;
 import com.kpop.ticketing.domain.show.model.Show;
 import com.kpop.ticketing.presentation.seat.usecase.ScheduleSeatUseCase;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @ActiveProfiles("test")
 @SpringBootTest

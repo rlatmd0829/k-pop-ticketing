@@ -16,7 +16,7 @@ import com.kpop.ticketing.domain.seat.model.Seat;
 import com.kpop.ticketing.domain.seat.model.SeatStatus;
 import com.kpop.ticketing.presentation.reservation.usecase.ReserveSeatUseCase;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 
 @ActiveProfiles("test")
 @SpringBootTest

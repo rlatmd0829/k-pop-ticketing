@@ -14,7 +14,7 @@ import com.kpop.ticketing.domain.waittoken.components.WaitTokenStore;
 import com.kpop.ticketing.domain.waittoken.model.WaitToken;
 import com.kpop.ticketing.presentation.waittoken.dto.response.WaitTokenResponse;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Component

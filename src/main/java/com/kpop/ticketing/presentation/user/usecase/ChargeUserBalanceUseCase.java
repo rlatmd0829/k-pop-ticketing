@@ -7,7 +7,7 @@ import com.kpop.ticketing.domain.user.components.UserStore;
 import com.kpop.ticketing.domain.user.model.User;
 import com.kpop.ticketing.presentation.user.dto.request.UserBalanceRequest;
 
-import jakarta.transaction.Transactional;
+import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 
 @Component
