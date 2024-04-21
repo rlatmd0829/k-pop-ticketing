@@ -22,6 +22,11 @@ public class SeatReaderRepositoryImpl implements SeatReaderRepository {
 	}
 
 	@Override
+	public Optional<Seat> getSeatForUpdate(Long seatId) {
+		return seatJpaRepository.getSeatForUpdate(seatId);
+	}
+
+	@Override
 	public List<Seat> getSeatsByShowIdAndStatus(Long showId, SeatStatus status) {
 		return seatJpaRepository.getSeatsByShowIdAndStatus(showId, status);
 	}

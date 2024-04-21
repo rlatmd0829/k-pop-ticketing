@@ -12,6 +12,7 @@ import com.kpop.ticketing.domain.seat.model.Seat;
 import com.kpop.ticketing.domain.seat.model.SeatStatus;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 
+import jakarta.persistence.LockModeType;
 import lombok.RequiredArgsConstructor;
 
 @Repository
@@ -24,8 +25,17 @@ public class SeatJpaRepositoryCustomImpl implements SeatJpaRepositoryCustom {
 	public Optional<Seat> getSeat(Long seatId) {
 		return Optional.ofNullable(
 			jpaQueryFactory.selectFrom(seat)
-			.where(seat.id.eq(seatId))
-			.fetchOne());
+				.where(seat.id.eq(seatId))
+				.fetchOne());
+	}
+
+	@Override
+	public Optional<Seat> getSeatForUpdate(Long seatId) {
+		return Optional.ofNullable(
+			jpaQueryFactory.selectFrom(seat)
+				.where(seat.id.eq(seatId))
+				.setLockMode(LockModeType.PESSIMISTIC_WRITE)
+				.fetchOne());
 	}
 
 	@Override

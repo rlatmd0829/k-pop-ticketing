@@ -70,4 +70,26 @@ class WaitTokenReaderTest {
 			.hasMessage(ErrorCode.NOT_FOUND_WAIT_TOKEN.getMessage());
 	}
 
+	@Test
+	@DisplayName("토큰 조회 테스트")
+	void getWaitTokenByToken() {
+		// given
+		FixtureMonkey fixtureMonkey = FixtureMonkey.builder()
+			.objectIntrospector(FieldReflectionArbitraryIntrospector.INSTANCE)
+			.plugin(new JakartaValidationPlugin())
+			.build();
+
+		String token = "token";
+
+		WaitToken waitToken = fixtureMonkey.giveMeBuilder(WaitToken.class)
+			.set("token", token)
+			.sample();
+
+		// when
+		when(waitTokenReaderRepository.getWaitTokenByToken(token)).thenReturn(Optional.of(waitToken));
+
+		// then
+		assertThat(waitTokenReader.getWaitTokenByToken(token)).isEqualTo(waitToken);
+	}
+
 }

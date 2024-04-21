@@ -8,6 +8,7 @@ import com.kpop.ticketing.domain.seat.model.SeatStatus;
 
 public interface SeatReaderRepository {
 	Optional<Seat> getSeat(Long seatId);
+	Optional<Seat> getSeatForUpdate(Long seatId);
 	List<Seat> getSeatsByShowIdAndStatus(Long showId, SeatStatus status);
 	List<Seat> getSeatsByStatus(SeatStatus status);
 

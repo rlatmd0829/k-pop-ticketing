@@ -33,9 +33,6 @@ public class WaitToken {
 	@Column(name = "token", nullable = false)
 	private String token;
 
-	// @Column(name = "number", nullable = false)
-	// private Integer number;
-
 	@Column(name = "status", nullable = false)
 	@Enumerated(EnumType.STRING)
 	private WaitingStatus status;
@@ -49,7 +46,6 @@ public class WaitToken {
 
 	private WaitToken(String token, WaitingStatus status, LocalDateTime expiredAt, User user) {
 		this.token = token;
-		// this.number = number;
 		this.status = status;
 		this.expiredAt = expiredAt;
 		this.user = user;
@@ -59,7 +55,6 @@ public class WaitToken {
 		if (ongoingCount >= MAX_WAITING_NUMBER) {
 			return new WaitToken(
 				token,
-				// totalCount - MAX_WAITING_NUMBER + 1,
 				WaitingStatus.WAITING,
 				LocalDateTime.now().plusDays(1000),
 				user
@@ -67,7 +62,6 @@ public class WaitToken {
 		} else {
 			return new WaitToken(
 				token,
-				// 0,
 				WaitingStatus.ONGOING,
 				LocalDateTime.now().plusMinutes(10),
 				user

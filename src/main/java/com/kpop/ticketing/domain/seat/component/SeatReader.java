@@ -21,6 +21,10 @@ public class SeatReader {
 		return seatReaderRepository.getSeat(seatId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_SEAT));
 	}
 
+	public Seat getSeatForUpdate(Long seatId) {
+		return seatReaderRepository.getSeatForUpdate(seatId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_SEAT));
+	}
+
 	public List<Seat> getEmptySeatsForShow(Long showId) {
 		return seatReaderRepository.getSeatsByShowIdAndStatus(showId, SeatStatus.EMPTY);
 	}
