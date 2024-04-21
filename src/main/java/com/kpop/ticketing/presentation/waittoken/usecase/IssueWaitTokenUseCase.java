@@ -39,9 +39,12 @@ public class IssueWaitTokenUseCase {
 			.filter(WaitToken::isOngoing)
 			.count();
 
-		WaitToken waitToken = WaitToken.create(token, ongoingCount, unexpiredWaitTokens.size(), user);
+		WaitToken waitToken = WaitToken.create(token, ongoingCount, user);
 		waitTokenStore.save(waitToken);
 
-		return WaitTokenResponse.of(token, waitToken.getStatus(), waitToken.getNumber());
+		// 대기열이 있는 경우 대기번호를 부여
+		long waitNumber = waitToken.getWaitingNumber(unexpiredWaitTokens.size(), ongoingCount);
+
+		return WaitTokenResponse.of(token, waitToken.getStatus(), waitNumber);
 	}
 }

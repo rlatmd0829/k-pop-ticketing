@@ -10,15 +10,15 @@ import lombok.NoArgsConstructor;
 public class WaitTokenResponse {
 	private String token;
 	private WaitingStatus waitingStatus;
-	private Integer waitingNumber;
+	private long waitingNumber;
 
-	private WaitTokenResponse(String token, WaitingStatus waitingStatus, Integer waitingNumber) {
+	private WaitTokenResponse(String token, WaitingStatus waitingStatus, long waitingNumber) {
 		this.token = token;
 		this.waitingStatus = waitingStatus;
 		this.waitingNumber = waitingNumber;
 	}
 
-	public static WaitTokenResponse of(String token, WaitingStatus waitingStatus, Integer waitingNumber) {
+	public static WaitTokenResponse of(String token, WaitingStatus waitingStatus, long waitingNumber) {
 		return new WaitTokenResponse(token, waitingStatus, waitingNumber);
 	}
 }

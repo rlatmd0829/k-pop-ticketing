@@ -33,8 +33,8 @@ public class WaitToken {
 	@Column(name = "token", nullable = false)
 	private String token;
 
-	@Column(name = "number", nullable = false)
-	private Integer number;
+	// @Column(name = "number", nullable = false)
+	// private Integer number;
 
 	@Column(name = "status", nullable = false)
 	@Enumerated(EnumType.STRING)
@@ -47,19 +47,19 @@ public class WaitToken {
 	@JoinColumn(name = "user_id", nullable = false)
 	private User user;
 
-	private WaitToken(String token, Integer number, WaitingStatus status, LocalDateTime expiredAt, User user) {
+	private WaitToken(String token, WaitingStatus status, LocalDateTime expiredAt, User user) {
 		this.token = token;
-		this.number = number;
+		// this.number = number;
 		this.status = status;
 		this.expiredAt = expiredAt;
 		this.user = user;
 	}
 
-	public static WaitToken create(String token, long ongoingCount, Integer totalCount, User user) {
+	public static WaitToken create(String token, long ongoingCount, User user) {
 		if (ongoingCount >= MAX_WAITING_NUMBER) {
 			return new WaitToken(
 				token,
-				totalCount - MAX_WAITING_NUMBER + 1,
+				// totalCount - MAX_WAITING_NUMBER + 1,
 				WaitingStatus.WAITING,
 				LocalDateTime.now().plusDays(1000),
 				user
@@ -67,7 +67,7 @@ public class WaitToken {
 		} else {
 			return new WaitToken(
 				token,
-				0,
+				// 0,
 				WaitingStatus.ONGOING,
 				LocalDateTime.now().plusMinutes(10),
 				user
@@ -126,5 +126,13 @@ public class WaitToken {
 		if (isExpiredSoon()) {
 			setExpiredAt(LocalDateTime.now().plusMinutes(5));
 		}
+	}
+
+	public long getWaitingNumber(int unexpiredWaitTokenSize, long ongoingCount) {
+		// 대기열이 있는 경우 대기번호를 부여
+		if (isWaiting()) {
+			return unexpiredWaitTokenSize - ongoingCount + 1;
+		}
+		return 0;
 	}
 }

@@ -22,22 +22,22 @@ import com.kpop.ticketing.domain.waittoken.model.WaitingStatus;
 class WaitTokenTest {
 
 	@Test
-	@DisplayName("대기 토큰 생성 테스트 - 현재 활동 중인 대기 토큰이 max wating number 미만일 경우")
+	@DisplayName("대기 토큰 생성 테스트 - 현재 활동 중인 대기 토큰이 max waiting number 미만일 경우")
 	void createTest_whenNumberOfOngoingTokensIsLessThanMax() {
 		User user = mock(User.class);
-		WaitToken waitToken = WaitToken.create("token", 10, 10, user);
+		WaitToken waitToken = WaitToken.create("token", 10, user);
 
-		assertEquals(0, waitToken.getNumber());
-		Assertions.assertEquals(WaitingStatus.ONGOING, waitToken.getStatus());
+		assertEquals(0, waitToken.getWaitingNumber(10, 10));
+		assertEquals(WaitingStatus.ONGOING, waitToken.getStatus());
 	}
 
 	@Test
-	@DisplayName("대기 토큰 생성 테스트 - 현재 활동 중인 대기 토큰이 max wating number 이상일 경우")
+	@DisplayName("대기 토큰 생성 테스트 - 현재 활동 중인 대기 토큰이 max waiting number 이상일 경우")
 	void createTest_whenNumberOfOngoingTokensIsOverMax() {
 		User user = mock(User.class);
-		WaitToken waitToken = WaitToken.create("token", 100, 100, user);
+		WaitToken waitToken = WaitToken.create("token", 100, user);
 
-		assertEquals(1, waitToken.getNumber());
+		assertEquals(1, waitToken.getWaitingNumber(100, 100));
 		assertEquals(WaitingStatus.WAITING, waitToken.getStatus());
 	}
 
@@ -45,7 +45,7 @@ class WaitTokenTest {
 	@DisplayName("대기 토큰 검증 테스트 - 토큰 만료시간이 지났을 경우")
 	void validateTokenTest_whenTokenIsExpired() {
 		User user = mock(User.class);
-		WaitToken waitToken = WaitToken.create("token", 10, 10, user);
+		WaitToken waitToken = WaitToken.create("token", 10, user);
 		waitToken.setExpiredAt(waitToken.getExpiredAt().minusMinutes(15));
 
 		assertThatThrownBy(waitToken::validateToken)
@@ -57,7 +57,7 @@ class WaitTokenTest {
 	@DisplayName("대기 토큰 검증 테스트 - 토큰 상태가 활동 중이 아닐 경우")
 	void validateTokenTest_whenTokenIsNotOnGoing() {
 		User user = mock(User.class);
-		WaitToken waitToken = WaitToken.create("token", 10, 10, user);
+		WaitToken waitToken = WaitToken.create("token", 10, user);
 		waitToken.setStatus(WaitingStatus.WAITING);
 
 		assertThatThrownBy(waitToken::validateToken)
@@ -69,7 +69,7 @@ class WaitTokenTest {
 	@DisplayName("대기 토큰 만료 처리 테스트 - 토큰 만료시간이 지났을 경우")
 	void setStatusIfExpiredTest_whenTokenExpired() {
 		User user = mock(User.class);
-		WaitToken waitToken = WaitToken.create("token", 10, 10, user);
+		WaitToken waitToken = WaitToken.create("token", 10, user);
 		waitToken.setExpiredAt(waitToken.getExpiredAt().minusMinutes(15));
 
 		waitToken.setStatusIfTokenExpired();
@@ -81,7 +81,7 @@ class WaitTokenTest {
 	@DisplayName("대기 토큰 만료 처리 테스트 - 토큰 만료시간이 지나지 않았을 경우")
 	void setStatusIfExpiredTest_whenTokenNotExpired() {
 		User user = mock(User.class);
-		WaitToken waitToken = WaitToken.create("token", 10, 10, user);
+		WaitToken waitToken = WaitToken.create("token", 10, user);
 		waitToken.setExpiredAt(waitToken.getExpiredAt().plusMinutes(15));
 
 		waitToken.setStatusIfTokenExpired();
@@ -93,7 +93,7 @@ class WaitTokenTest {
 	void refreshExpiredAtIfExpiredSoonTest() {
 		// given
 		User user = mock(User.class);
-		WaitToken waitToken = WaitToken.create("token", 10, 10, user);
+		WaitToken waitToken = WaitToken.create("token", 10, user);
 		waitToken.setExpiredAt(waitToken.getExpiredAt().minusMinutes(9));
 
 		// when

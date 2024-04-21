@@ -48,7 +48,7 @@ class ScheduleWaitTokenUseCaseTest {
 
 		int ongoingCount = 0;
 		for (int i = 0; i < 200; i++) {
-			WaitToken waitToken = WaitToken.create("token" + i, ongoingCount, i, user);
+			WaitToken waitToken = WaitToken.create("token" + i, ongoingCount, user);
 			// ongoing은 100개만 생성
 			if (i <= 100) {
 				ongoingCount++;
