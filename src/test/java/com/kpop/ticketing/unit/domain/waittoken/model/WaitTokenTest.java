@@ -4,6 +4,9 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -84,5 +87,22 @@ class WaitTokenTest {
 		waitToken.setStatusIfTokenExpired();
 
 		assertEquals(WaitingStatus.ONGOING, waitToken.getStatus());
+	}
+
+	@Test
+	void refreshExpiredAtIfExpiredSoonTest() {
+		// given
+		User user = mock(User.class);
+		WaitToken waitToken = WaitToken.create("token", 10, 10, user);
+		waitToken.setExpiredAt(waitToken.getExpiredAt().minusMinutes(9));
+
+		// when
+		LocalDateTime now = LocalDateTime.now();
+		waitToken.refreshExpiredAtIfExpiredSoon();
+
+		// then
+		// refresh 되서 5분뒤 만료인지 확인
+		LocalDateTime expectedExpiration = now.plusMinutes(5).truncatedTo(ChronoUnit.MINUTES);
+		assertThat(waitToken.getExpiredAt().truncatedTo(ChronoUnit.MINUTES)).isEqualTo(expectedExpiration);
 	}
 }

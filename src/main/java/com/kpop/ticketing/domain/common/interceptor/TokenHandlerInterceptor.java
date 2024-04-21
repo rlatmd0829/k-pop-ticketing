@@ -19,11 +19,12 @@ public class TokenHandlerInterceptor implements HandlerInterceptor {
 
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
-		log.info("TokenHandlerInterceptor.preHandle");
+		log.info("[TokenHandlerInterceptor] - preHandle 시작");
 		String token = request.getHeader("token");
 		// 토큰 검사
 		WaitToken waitToken = waitTokenReader.getWaitTokenByToken(token);
 		waitToken.validateToken();
+		waitToken.refreshExpiredAtIfExpiredSoon();
 		return true;
 	}
 }

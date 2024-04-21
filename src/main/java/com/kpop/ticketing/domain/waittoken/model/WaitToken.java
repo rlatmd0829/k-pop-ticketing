@@ -87,6 +87,10 @@ public class WaitToken {
 		return expiredAt.isBefore(LocalDateTime.now());
 	}
 
+	public boolean isExpiredSoon() {
+		return expiredAt.isBefore(LocalDateTime.now().plusMinutes(1));
+	}
+
 	public boolean isOngoing() {
 		return status == WaitingStatus.ONGOING;
 	}
@@ -115,6 +119,12 @@ public class WaitToken {
 	public void setStatusIfTokenExpired() {
 		if (isExpired()) {
 			setStatus(WaitingStatus.EXPIRED);
+		}
+	}
+
+	public void refreshExpiredAtIfExpiredSoon() {
+		if (isExpiredSoon()) {
+			setExpiredAt(LocalDateTime.now().plusMinutes(5));
 		}
 	}
 }
