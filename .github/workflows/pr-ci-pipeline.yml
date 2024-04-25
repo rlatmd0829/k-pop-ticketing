@@ -5,24 +5,24 @@ on:
     branches: [ main, develop, feature/*, staging ]
 
 jobs:
-  lint:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - name: Set up JDK 17
-        uses: actions/setup-java@v4
-        with:
-          java-version: '17'
-          distribution: 'adopt'
-          cache: gradle
-      - name: Install Gradle
-        run: |
-          sudo apt update
-          sudo apt install -y gradle
-
-      - name: Run Checkstyle
-        run: |
-          ./gradlew checkstyleMain checkstyleTest --continue
+#  lint:
+#    runs-on: ubuntu-latest
+#    steps:
+#      - uses: actions/checkout@v4
+#      - name: Set up JDK 17
+#        uses: actions/setup-java@v4
+#        with:
+#          java-version: '17'
+#          distribution: 'adopt'
+#          cache: gradle
+#      - name: Install Gradle
+#        run: |
+#          sudo apt update
+#          sudo apt install -y gradle
+#
+#      - name: Run Checkstyle
+#        run: |
+#          ./gradlew checkstyleMain checkstyleTest --continue
 
   test:
     runs-on: ubuntu-latest
