@@ -55,9 +55,7 @@ checkstyle {
 }
 
 tasks.checkstyleMain {
-    dependsOn 'checkstyleMain' // Main 소스 코드에 대한 Checkstyle 작업을 실행합니다
 }
 
 tasks.checkstyleTest {
-    dependsOn 'checkstyleTest' // Test 소스 코드에 대한 Checkstyle 작업을 실행합니다
 }
