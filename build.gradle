@@ -2,6 +2,7 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.4'
     id 'io.spring.dependency-management' version '1.1.4'
+    id 'checkstyle'
 }
 
 group = 'com.kpop'
@@ -46,4 +47,17 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
+}
+
+checkstyle {
+    toolVersion = '8.44' // 사용할 Checkstyle 버전을 지정합니다
+    configFile = file("$rootDir/.idea/checkstyle-idea.xml") // IntelliJ IDEA에서 사용 중인 Checkstyle 설정 파일 경로를 지정합니다
+}
+
+tasks.checkstyleMain {
+    dependsOn 'checkstyleMain' // Main 소스 코드에 대한 Checkstyle 작업을 실행합니다
+}
+
+tasks.checkstyleTest {
+    dependsOn 'checkstyleTest' // Test 소스 코드에 대한 Checkstyle 작업을 실행합니다
 }
