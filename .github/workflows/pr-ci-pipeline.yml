@@ -2,11 +2,7 @@ name: pr-ci-pipeline
 
 on:
   pull_request:
-    branches:
-      - main
-      - develop
-      - feature/*
-      - staging
+    branches: [ main, develop, feature/*, staging ]
 
 jobs:
   lint:
