@@ -1,5 +1,5 @@
 # 베이스 이미지로부터 시작
-FROM adoptopenjdk/openjdk17:alpine-slim
+FROM openjdk:17-alpine3.14
 
 # 작업 디렉토리 설정
 WORKDIR /app
