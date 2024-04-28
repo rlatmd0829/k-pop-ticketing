@@ -2,7 +2,17 @@ plugins {
     id 'java'
     id 'org.springframework.boot' version '3.2.4'
     id 'io.spring.dependency-management' version '1.1.4'
-//    id 'checkstyle'
+    id 'checkstyle'
+}
+
+compileJava.options.encoding = 'UTF-8'
+compileTestJava.options.encoding = 'UTF-8'
+
+checkstyle {
+    maxWarnings = 40
+    configFile = file("${rootDir}/config/checkstyle/naver-checkstyle-rules.xml")
+    configProperties = ["suppressionFile": "${rootDir}/config/checkstyle/naver-checkstyle-suppressions.xml"]
+    toolVersion = "8.42"
 }
 
 group = 'com.kpop'
@@ -48,18 +58,3 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
-
-//compileJava.options.encoding = 'UTF-8'
-//compileTestJava.options.encoding = 'UTF-8'
-//
-//tasks.withType(Checkstyle) {
-//    reports {
-//        xml.required = true
-//        html.required = true
-//    }
-//}
-//
-//checkstyle {
-//    configFile = file("config/checkstyle/naver-checkstyle-rules.xml")
-//    configProperties = ["suppressionsFile": "config/checkstyle/naver-checkstyle-suppressions.xml"]
-//}
