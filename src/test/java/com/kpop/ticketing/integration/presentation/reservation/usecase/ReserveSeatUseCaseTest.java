@@ -110,7 +110,6 @@ class ReserveSeatUseCaseTest {
 
 		countDownLatch.await();
 		executorService.shutdown();
-
-		assertThat(count.get()).isEqualTo(1);
+		assertThat(reservationJpaRepository.findAll().size()).isEqualTo(1);
 	}
 }
