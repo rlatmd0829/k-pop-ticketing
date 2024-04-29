@@ -34,7 +34,6 @@ jobs:
           ./gradlew checkstyleMain checkstyleTest --continue
 
   test:
-    name: pr-ci-pipeline
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
