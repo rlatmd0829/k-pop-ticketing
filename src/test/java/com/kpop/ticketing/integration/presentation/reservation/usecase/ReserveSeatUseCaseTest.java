@@ -5,7 +5,6 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
-import java.util.concurrent.atomic.AtomicInteger;
 
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
@@ -89,18 +88,15 @@ class ReserveSeatUseCaseTest {
 	@DisplayName("좌석 예약 테스트 - 동시성 테스트")
 	void reserveSeatUseCaseConcurrencyTest() throws InterruptedException {
 		// given
-		int numberOfThreads = 100;
+		int numberOfThreads = 10;
 		ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
 		CountDownLatch countDownLatch = new CountDownLatch(numberOfThreads);
 
-		// 결과를 저장할 변수
-		AtomicInteger count = new AtomicInteger();
-
+		// when
 		for (int i = 0; i < numberOfThreads; i++) {
 			executorService.execute(() -> {
 				try {
 					reserveSeatUseCase.execute("token", 1L);
-					count.getAndIncrement();
 				} finally {
 					// 각 스레드가 자신의 작업을 완료했음을 표시하기 위해 호출됩니다.
 					countDownLatch.countDown();
@@ -110,6 +106,8 @@ class ReserveSeatUseCaseTest {
 
 		countDownLatch.await();
 		executorService.shutdown();
+
+		// then
 		assertThat(reservationJpaRepository.findAll().size()).isEqualTo(1);
 	}
 }

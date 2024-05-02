@@ -14,6 +14,7 @@ public enum ErrorCode {
 	INVALID_EXPIRED_TOKEN(HttpStatus.BAD_REQUEST, "만료된 토큰입니다."),
 	INVALID_STATUS_TOKEN(HttpStatus.BAD_REQUEST, "유효하지 않은 토큰 상태입니다."),
 
+
 	/* 404 NOT_FOUND */
 	NOT_FOUND_SHOW(HttpStatus.NOT_FOUND, "존재하지 않는 공연입니다."),
 	NOT_FOUND_SEAT(HttpStatus.NOT_FOUND, "존재하지 않는 좌석입니다."),

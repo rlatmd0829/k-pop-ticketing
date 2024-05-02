@@ -9,4 +9,12 @@ import lombok.NoArgsConstructor;
 public class UserBalanceRequest {
 	@Schema(description = "충전할 금액", example = "10000")
 	private Integer chargeAmount;
+
+	private UserBalanceRequest(Integer chargeAmount) {
+		this.chargeAmount = chargeAmount;
+	}
+
+	public static UserBalanceRequest create(Integer chargeAmount) {
+		return new UserBalanceRequest(chargeAmount);
+	}
 }
