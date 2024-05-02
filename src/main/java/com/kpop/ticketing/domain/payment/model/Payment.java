@@ -1,5 +1,6 @@
 package com.kpop.ticketing.domain.payment.model;
 
+import com.kpop.ticketing.domain.reservation.model.Reservation;
 import com.kpop.ticketing.domain.user.model.User;
 
 import jakarta.persistence.Column;
@@ -35,13 +36,18 @@ public class Payment {
 	@JoinColumn(name = "user_id")
 	private User user;
 
-	private Payment(Integer amount, PaymentStatus status, User user) {
+	@ManyToOne
+	@JoinColumn(name = "reservation_id")
+	private Reservation reservation;
+
+	private Payment(Integer amount, PaymentStatus status, User user, Reservation reservation) {
 		this.amount = amount;
 		this.status = status;
 		this.user = user;
+		this.reservation = reservation;
 	}
 
-	public static Payment create(Integer amount, User user) {
-		return new Payment(amount, PaymentStatus.COMPLETED, user);
+	public static Payment create(Integer amount, User user, Reservation reservation) {
+		return new Payment(amount, PaymentStatus.COMPLETED, user, reservation);
 	}
 }

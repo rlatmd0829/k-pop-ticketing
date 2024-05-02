@@ -17,4 +17,8 @@ public class PaymentReader {
 	public Payment getPayment(Long paymentId) {
 		return paymentReaderRepository.getPayment(paymentId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_PAYMENT));
 	}
+
+	public Payment getPaymentByReservationId(Long reservationId) {
+		return paymentReaderRepository.getPaymentByReservationId(reservationId).orElseThrow(() -> new CustomException(ErrorCode.NOT_FOUND_PAYMENT));
+	}
 }

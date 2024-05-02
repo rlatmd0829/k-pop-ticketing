@@ -7,6 +7,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,7 +34,8 @@ class ChargeUserBalanceUseCaseTest {
     }
 
     @Test
-    void chargeUserBalanceTest() throws InterruptedException {
+    @DisplayName("유저 잔액 충전 테스트 - 동시성 테스트")
+    void chargeUserBalanceConcurrencyTest() throws InterruptedException {
         // given
         int numberOfThreads = 10;
         ExecutorService executorService = Executors.newFixedThreadPool(numberOfThreads);
@@ -57,6 +59,5 @@ class ChargeUserBalanceUseCaseTest {
 
         // then
         assertThat(userJpaRepository.findById(1L).get().getBalance()).isEqualTo(110000);
-
     }
 }

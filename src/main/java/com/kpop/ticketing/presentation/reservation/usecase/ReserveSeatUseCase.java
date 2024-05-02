@@ -34,7 +34,6 @@ public class ReserveSeatUseCase {
 		WaitToken waitToken = waitTokenReader.getWaitTokenByToken(token);
 
 		User user = userReader.getUser(waitToken.getUser().getId());
-		// 비관적락으로 seat 조회
 		Seat seat = seatReader.getSeat(seatId);
 
 		// 좌석 상태체크

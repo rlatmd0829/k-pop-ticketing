@@ -17,4 +17,8 @@ public class PaymentReaderRepositoryImpl implements PaymentReaderRepository {
 	public Optional<Payment> getPayment(Long paymentId) {
 		return paymentJpaRepository.getPayment(paymentId);
 	}
+
+	public Optional<Payment> getPaymentByReservationId(Long reservationId) {
+		return paymentJpaRepository.getPaymentByReservationId(reservationId);
+	}
 }

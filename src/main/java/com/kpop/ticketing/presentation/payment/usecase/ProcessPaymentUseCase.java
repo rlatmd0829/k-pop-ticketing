@@ -1,5 +1,6 @@
 package com.kpop.ticketing.presentation.payment.usecase;
 
+import com.kpop.ticketing.domain.common.annotation.DistributedLock;
 import org.springframework.stereotype.Component;
 
 import com.kpop.ticketing.domain.payment.components.PaymentStore;
@@ -20,6 +21,7 @@ public class ProcessPaymentUseCase {
 	private final PaymentStore paymentStore;
 	private final ReservationReader reservationReader;
 
+	@DistributedLock
 	public void execute(Long reservationId) {
 		Reservation reservation = reservationReader.getReservation(reservationId);
 		User user = userReader.getUser(reservation.getUser().getId());
@@ -30,7 +32,7 @@ public class ProcessPaymentUseCase {
 		// 좌석 결제까지 완료
 		reservation.complete();
 
-		Payment payment = Payment.create(reservation.getAmount(), user);
+		Payment payment = Payment.create(reservation.getAmount(), user, reservation);
 		paymentStore.save(payment);
 	}
 }
