@@ -1,6 +1,7 @@
 package com.kpop.ticketing.presentation.reservation.usecase;
 
 import com.kpop.ticketing.domain.common.annotation.DistributedLock;
+import com.kpop.ticketing.domain.common.aspect.LockType;
 import org.redisson.api.RedissonClient;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
@@ -29,7 +30,7 @@ public class ReserveSeatUseCase {
 	private final ReservationStore reservationStore;
 	private final WaitTokenReader waitTokenReader;
 
-	@DistributedLock
+	@DistributedLock(lockType = LockType.RESERVATION)
 	public void execute(String token, Long seatId) {
 		WaitToken waitToken = waitTokenReader.getWaitTokenByToken(token);
 

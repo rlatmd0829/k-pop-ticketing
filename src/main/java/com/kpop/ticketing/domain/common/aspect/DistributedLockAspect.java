@@ -39,9 +39,8 @@ public class DistributedLockAspect {
 
         MethodSignature signature = (MethodSignature) joinPoint.getSignature();
         Method method = signature.getMethod();
-        String methodName = method.getName();
-        RLock rLock = redissonClient.getLock(String.format("lock:%s:%s", methodName, lockKey));
         DistributedLock lock = method.getAnnotation(DistributedLock.class);
+        RLock rLock = redissonClient.getLock(String.format("lock:%s:%s", lock.lockType(), lockKey));
 
         try {
             if (!rLock.tryLock(lock.waitTime(), lock.leaseTime(), lock.timeUnit())) {

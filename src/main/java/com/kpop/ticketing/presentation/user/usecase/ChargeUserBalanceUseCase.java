@@ -1,6 +1,7 @@
 package com.kpop.ticketing.presentation.user.usecase;
 
 import com.kpop.ticketing.domain.common.annotation.DistributedLock;
+import com.kpop.ticketing.domain.common.aspect.LockType;
 import org.springframework.stereotype.Component;
 
 import com.kpop.ticketing.domain.user.components.UserReader;
@@ -18,7 +19,7 @@ public class ChargeUserBalanceUseCase {
 	private final UserReader userReader;
 	private final UserStore userStore;
 
-	@DistributedLock
+	@DistributedLock(lockType = LockType.POINT)
 	public void execute(Long userId, UserBalanceRequest userBalanceRequest) {
 		User user = userReader.getUser(userId);
 		user.chargeBalance(userBalanceRequest.getChargeAmount());
