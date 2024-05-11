@@ -1,5 +1,6 @@
 package com.kpop.ticketing.presentation.waittoken.controller;
 
+import com.kpop.ticketing.presentation.waittoken.dto.response.WaitTokenNumberResponse;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -23,18 +24,18 @@ public class WaitTokenController {
 	private final GetWaitTokenUseCase getWaitTokenUseCase;
 
 	@PostMapping("/{userId}/token")
-	public ResponseEntity<WaitTokenResponse> issueWaitToken(
+	public ResponseEntity<WaitTokenNumberResponse> issueWaitToken(
 		@PathVariable Long userId
 	) {
-		WaitTokenResponse waitTokenResponse = issueWaitTokenUseCase.execute(userId);
+		WaitTokenNumberResponse waitTokenResponse = issueWaitTokenUseCase.execute(userId);
 		return ResponseEntity.ok(waitTokenResponse);
 	}
 
 	@GetMapping("/{userId}/token")
-	public ResponseEntity<WaitTokenResponse> getWaitToken(
+	public ResponseEntity<WaitTokenNumberResponse> getWaitToken(
 		@PathVariable Long userId
 	) {
-		WaitTokenResponse waitTokenResponse = getWaitTokenUseCase.execute(userId);
+		WaitTokenNumberResponse waitTokenResponse = getWaitTokenUseCase.execute(userId);
 		return ResponseEntity.ok(waitTokenResponse);
 	}
 }

@@ -1,5 +1,7 @@
 package com.kpop.ticketing.presentation.waittoken.usecase;
 
+import com.kpop.ticketing.domain.common.redis.RedisService;
+import com.kpop.ticketing.presentation.waittoken.dto.response.WaitTokenNumberResponse;
 import java.util.List;
 import java.util.UUID;
 
@@ -24,27 +26,42 @@ public class IssueWaitTokenUseCase {
 	private final UserReader userReader;
 	private final WaitTokenReader waitTokenReader;
 	private final WaitTokenStore waitTokenStore;
+	private final RedisService redisService;
 
-	public WaitTokenResponse execute(Long userId) {
+//	public WaitTokenResponse execute(Long userId) {
+//		User user = userReader.getUser(userId);
+//		String token = UUID.randomUUID().toString();
+//
+//		if (waitTokenReader.isExistWaitToken(userId)) {
+//			throw new CustomException(ErrorCode.DUPLICATED_WAIT_TOKEN);
+//		}
+//
+//		List<WaitToken> unexpiredWaitTokens = waitTokenReader.getUnexpiredWaitTokens();
+//
+//		long ongoingCount = unexpiredWaitTokens.stream()
+//			.filter(WaitToken::isOngoing)
+//			.count();
+//
+//		WaitToken waitToken = WaitToken.create(token, ongoingCount, user);
+//		waitTokenStore.save(waitToken);
+//
+//		// 대기열이 있는 경우 대기번호를 부여
+//		long waitNumber = waitToken.getWaitingNumber(unexpiredWaitTokens.size(), ongoingCount);
+//
+//		return WaitTokenResponse.of(token, waitToken.getStatus(), waitNumber);
+//	}
+
+	public WaitTokenNumberResponse execute(Long userId) {
 		User user = userReader.getUser(userId);
-		String token = UUID.randomUUID().toString();
 
-		if (waitTokenReader.isExistWaitToken(userId)) {
+		if (redisService.isExistWaitToken(user.getId())) {
 			throw new CustomException(ErrorCode.DUPLICATED_WAIT_TOKEN);
 		}
 
-		List<WaitToken> unexpiredWaitTokens = waitTokenReader.getUnexpiredWaitTokens();
+		redisService.addToSortedSet(user.getId(), System.currentTimeMillis());
+		Long waitNumber = redisService.getWaitNumber(user.getId());
 
-		long ongoingCount = unexpiredWaitTokens.stream()
-			.filter(WaitToken::isOngoing)
-			.count();
+		return WaitTokenNumberResponse.from(waitNumber);
 
-		WaitToken waitToken = WaitToken.create(token, ongoingCount, user);
-		waitTokenStore.save(waitToken);
-
-		// 대기열이 있는 경우 대기번호를 부여
-		long waitNumber = waitToken.getWaitingNumber(unexpiredWaitTokens.size(), ongoingCount);
-
-		return WaitTokenResponse.of(token, waitToken.getStatus(), waitNumber);
 	}
 }
