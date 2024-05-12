@@ -20,23 +20,23 @@ import lombok.extern.slf4j.Slf4j;
 public class ScheduleWaitTokenUseCase {
 	private final WaitTokenReader waitTokenReader;
 
-	@Scheduled(fixedDelay = 60000)
-	public void execute() {
-		log.info("ScheduleWaitTokenUseCase.setStatusIfTokenExpired");
-
-		List<WaitToken> unexpiredWaitTokens = waitTokenReader.getUnexpiredWaitTokens();
-
-		List<WaitToken> expiredTokens = unexpiredWaitTokens
-			.stream()
-			.filter(WaitToken::isExpired)
-			.toList();
-
-		expiredTokens.forEach(WaitToken::expire);
-		long expiredCount = expiredTokens.size();
-
-		unexpiredWaitTokens.stream()
-			.filter(WaitToken::isWaiting)
-			.limit(expiredCount)
-			.forEach(WaitToken::onGoing);
-	}
+//	@Scheduled(fixedDelay = 60000)
+//	public void execute() {
+//		log.info("ScheduleWaitTokenUseCase.setStatusIfTokenExpired");
+//
+//		List<WaitToken> unexpiredWaitTokens = waitTokenReader.getUnexpiredWaitTokens();
+//
+//		List<WaitToken> expiredTokens = unexpiredWaitTokens
+//			.stream()
+//			.filter(WaitToken::isExpired)
+//			.toList();
+//
+//		expiredTokens.forEach(WaitToken::expire);
+//		long expiredCount = expiredTokens.size();
+//
+//		unexpiredWaitTokens.stream()
+//			.filter(WaitToken::isWaiting)
+//			.limit(expiredCount)
+//			.forEach(WaitToken::onGoing);
+//	}
 }

@@ -2,8 +2,11 @@ package com.kpop.ticketing.integration.presentation.waittoken.usecase;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.Mockito.*;
 
+import com.kpop.ticketing.domain.common.redis.RedisService;
+import com.kpop.ticketing.presentation.waittoken.dto.response.WaitTokenNumberResponse;
 import java.util.List;
 
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -45,18 +48,24 @@ class IssueWaitTokenUseCaseTest {
 	@Autowired
 	private IssueWaitTokenUseCase issueWaitTokenUseCase;
 
+	@Autowired
+	private RedisService redisService;
+
+	@BeforeEach
+	void setUp() {
+		redisService.addToSortedSet(1L, 0);
+	}
+
 	@Test
 	@DisplayName("대기 토큰 발급 테스트")
 	void issueWaitTokenTest() {
 		// given
 		Long userId = 2L;
-		WaitTokenResponse waitTokenResponse = issueWaitTokenUseCase.execute(userId);
+		WaitTokenNumberResponse waitTokenNumberResponse = issueWaitTokenUseCase.execute(userId);
 
 		// then
-		assertThat(waitTokenResponse).isNotNull();
-		assertThat(waitTokenResponse.getToken()).isNotNull();
-		assertThat(waitTokenResponse.getWaitingStatus()).isEqualTo(WaitingStatus.ONGOING);
-		assertThat(waitTokenResponse.getWaitingNumber()).isEqualTo(0);
+		assertThat(waitTokenNumberResponse).isNotNull();
+		assertThat(waitTokenNumberResponse.getWaitingNumber()).isEqualTo(1);
 	}
 
 	@Test
