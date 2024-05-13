@@ -24,32 +24,7 @@ import lombok.RequiredArgsConstructor;
 @Transactional
 public class IssueWaitTokenUseCase {
 	private final UserReader userReader;
-	private final WaitTokenReader waitTokenReader;
-	private final WaitTokenStore waitTokenStore;
 	private final RedisService redisService;
-
-//	public WaitTokenResponse execute(Long userId) {
-//		User user = userReader.getUser(userId);
-//		String token = UUID.randomUUID().toString();
-//
-//		if (waitTokenReader.isExistWaitToken(userId)) {
-//			throw new CustomException(ErrorCode.DUPLICATED_WAIT_TOKEN);
-//		}
-//
-//		List<WaitToken> unexpiredWaitTokens = waitTokenReader.getUnexpiredWaitTokens();
-//
-//		long ongoingCount = unexpiredWaitTokens.stream()
-//			.filter(WaitToken::isOngoing)
-//			.count();
-//
-//		WaitToken waitToken = WaitToken.create(token, ongoingCount, user);
-//		waitTokenStore.save(waitToken);
-//
-//		// 대기열이 있는 경우 대기번호를 부여
-//		long waitNumber = waitToken.getWaitingNumber(unexpiredWaitTokens.size(), ongoingCount);
-//
-//		return WaitTokenResponse.of(token, waitToken.getStatus(), waitNumber);
-//	}
 
 	public WaitTokenNumberResponse execute(Long userId) {
 		User user = userReader.getUser(userId);
@@ -58,7 +33,7 @@ public class IssueWaitTokenUseCase {
 			throw new CustomException(ErrorCode.DUPLICATED_WAIT_TOKEN);
 		}
 
-		redisService.addToSortedSet(user.getId(), System.currentTimeMillis());
+		redisService.addToWaitingQueue(user.getId(), System.currentTimeMillis());
 		Long waitNumber = redisService.getWaitNumber(user.getId());
 
 		return WaitTokenNumberResponse.from(waitNumber);
