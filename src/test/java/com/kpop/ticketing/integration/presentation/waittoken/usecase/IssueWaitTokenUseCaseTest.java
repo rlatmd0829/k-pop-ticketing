@@ -3,6 +3,7 @@ import static org.assertj.core.api.AssertionsForClassTypes.*;
 import static org.mockito.Mockito.*;
 
 import com.kpop.ticketing.domain.common.redis.RedisService;
+import com.kpop.ticketing.integration.presentation.config.TestContainerConfig;
 import com.kpop.ticketing.presentation.waittoken.dto.response.WaitTokenNumberResponse;
 import java.util.List;
 
@@ -35,6 +36,7 @@ import com.navercorp.fixturemonkey.jakarta.validation.plugin.JakartaValidationPl
 
 @ActiveProfiles("test")
 @SpringBootTest
+@ExtendWith(TestContainerConfig.class)
 @Sql(scripts = {
 	"classpath:data/users.sql",
 	"classpath:data/concerts.sql",
@@ -53,7 +55,7 @@ class IssueWaitTokenUseCaseTest {
 
 	@BeforeEach
 	void setUp() {
-		redisService.addToSortedSet(1L, 0);
+		redisService.addToWaitingQueue(1L, 0);
 	}
 
 	@Test
@@ -65,7 +67,7 @@ class IssueWaitTokenUseCaseTest {
 
 		// then
 		assertThat(waitTokenNumberResponse).isNotNull();
-		assertThat(waitTokenNumberResponse.getWaitingNumber()).isEqualTo(1);
+		assertThat(waitTokenNumberResponse.getWaitingNumber()).isEqualTo(2);
 	}
 
 	@Test

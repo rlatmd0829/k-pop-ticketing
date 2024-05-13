@@ -3,10 +3,12 @@ package com.kpop.ticketing.integration.presentation.waittoken.usecase;
 import static org.assertj.core.api.AssertionsForClassTypes.*;
 
 import com.kpop.ticketing.domain.common.redis.RedisService;
+import com.kpop.ticketing.integration.presentation.config.TestContainerConfig;
 import com.kpop.ticketing.presentation.waittoken.dto.response.WaitTokenNumberResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Bean;
@@ -20,6 +22,7 @@ import com.kpop.ticketing.presentation.waittoken.usecase.GetWaitTokenUseCase;
 
 @ActiveProfiles("test")
 @SpringBootTest
+@ExtendWith(TestContainerConfig.class)
 @Sql(scripts = {
 	"classpath:data/users.sql",
 	"classpath:data/concerts.sql",
@@ -38,7 +41,7 @@ class GetWaitTokenUseCaseTest {
 
 	@BeforeEach
 	void setUp() {
-		redisService.addToSortedSet(1L, 0);
+		redisService.addToWaitingQueue(1L, 0);
 	}
 
 	@Test
