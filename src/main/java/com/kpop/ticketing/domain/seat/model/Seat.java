@@ -1,5 +1,6 @@
 package com.kpop.ticketing.domain.seat.model;
 
+import jakarta.persistence.Index;
 import java.time.LocalDateTime;
 
 import com.kpop.ticketing.domain.common.exception.CustomException;
@@ -20,7 +21,10 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "seats")
+@Table(name = "seats",
+	indexes = {
+		@Index(name = "idx_status", columnList = "status")
+	})
 @Getter
 @NoArgsConstructor
 public class Seat {
