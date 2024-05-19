@@ -2,6 +2,8 @@ package com.kpop.ticketing.presentation.payment.usecase;
 
 import com.kpop.ticketing.domain.common.annotation.DistributedLock;
 import com.kpop.ticketing.domain.common.aspect.LockType;
+import com.kpop.ticketing.domain.payment.event.PaymentCompletedEvent;
+import org.springframework.context.ApplicationEventPublisher;
 import org.springframework.stereotype.Component;
 
 import com.kpop.ticketing.domain.payment.components.PaymentStore;
@@ -21,6 +23,7 @@ public class ProcessPaymentUseCase {
 	private final UserReader userReader;
 	private final PaymentStore paymentStore;
 	private final ReservationReader reservationReader;
+	private final ApplicationEventPublisher eventPublisher;
 
 	@DistributedLock(lockType = LockType.POINT)
 	public void execute(Long reservationId) {
@@ -35,5 +38,8 @@ public class ProcessPaymentUseCase {
 
 		Payment payment = Payment.create(reservation.getAmount(), user, reservation);
 		paymentStore.save(payment);
+
+		// 결제 완료 이벤트 발행
+		eventPublisher.publishEvent(new PaymentCompletedEvent(payment));
 	}
 }
